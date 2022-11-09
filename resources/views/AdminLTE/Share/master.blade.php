@@ -42,6 +42,7 @@
     </div>
 
     @include('AdminLTE.Share.js')
+    @yield('js')
 </body>
 
 </html>
