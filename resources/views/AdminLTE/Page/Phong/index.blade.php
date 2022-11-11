@@ -41,15 +41,15 @@
                 Danh Sách Các Phòng
             </div>
             <div class="card-body">
-                <table class="table table-bordered">
+                <table id="table" class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Tên phòng</th>
-                            <th>Tình Trạng</th>
-                            <th>Ghế Hàng Dọc</th>
-                            <th>Ghế Hàng Ngang</th>
-                            <th>Action</th>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Tên phòng</th>
+                            <th class="text-center">Tình Trạng</th>
+                            <th class="text-center">Ghế Hàng Dọc</th>
+                            <th class="text-center">Ghế Hàng Ngang</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,42 +74,61 @@
             axios
                 .post('/admin/phong/index', payload)
                 .then((res) => {
-                    console.log('oke');
+                    loadData();
+                    toastr.success('Đã thêm mới thành công!');
+                    $("#ten_phong").val('');
+                    $("#tinh_trang").val('');
+                    $("#hang_doc").val('');
+                    $("#hang_ngang").val('');
                 });
         });
-        var list_phong = [];
-        var phong_1 = {
-            'id'        : 1,
-            'ten_phong' : 'Happy',
-            'tinh_trang': 1,
-            'hang_doc'  : 5,
-            'hang_ngang': 7,
+
+        function loadData() {
+            axios
+                .get('/admin/phong/data')
+                .then((res) => {
+                    showTable(res.data.list);
+                });
         };
-        var phong_2 = {
-            'id'        : 2,
-            'ten_phong' : 'Boring',
-            'tinh_trang': 0,
-            'hang_doc'  : 2,
-            'hang_ngang': 3,
-        };
-        var phong_3 = {
-            'id'        : 5,
-            'ten_phong' : 'Honey',
-            'tinh_trang': 1,
-            'hang_doc'  : 2,
-            'hang_ngang': 1,
-        };
-        var phong_4 = {
-            'id'        : 7,
-            'ten_phong' : 'Haha',
-            'tinh_trang': 1,
-            'hang_doc'  : 6,
-            'hang_ngang': 8,
-        };
-        list_phong.push(phong_1);
-        list_phong.push(phong_2);
-        list_phong.push(phong_3);
-        list_phong.push(phong_4);
+
+        function showTable(list_phong) {
+            var noi_dung = '';
+            $.each(list_phong, function(key, value) {
+                noi_dung += '<tr>';
+                noi_dung += '<th class="text-center align-middle">'+ (key + 1) +'</th>';
+                noi_dung += '<td class="align-middle">'+ value.ten_phong +'</td>';
+                noi_dung += '<td class="align-middle text-center">';
+                if(value.tinh_trang){
+                    noi_dung += '<button data-id="'+ value.id +'" class="xxx btn btn-primary">Đang Kinh Doanh</button>';
+                } else {
+                    noi_dung += '<button data-id="'+ value.id +'" class="xxx btn btn-warning">Dừng Kinh Doanh</button>';
+                }
+                noi_dung += '</td>';
+                noi_dung += '<td class="align-middle text-center">'+ value.hang_doc +'</td>';
+                noi_dung += '<td class="align-middle text-center">'+ value.hang_ngang +'</td>';
+                noi_dung += '<td class="text-nowrap text-center align-middle">';
+                noi_dung += '<button class="btn btn-info mr-1">Cập Nhật</button>';
+                noi_dung += '<button class="btn btn-danger">Xóa Phòng</button>';
+                noi_dung += '</td>';
+                noi_dung += '</tr>';
+            });
+
+            $("#table tbody").html(noi_dung);
+        }
+
+        $("body").on('click', '.xxx', function() {
+            var id = $(this).data('id');
+            axios
+                .get('/admin/phong/change-status/' + id)
+                .then((res) => {
+                    loadData();
+                    toastr.success('Đã đổi trạng thái thành công!');
+                });
+        });
+
+        loadData();
+
+
     });
 </script>
 @endsection

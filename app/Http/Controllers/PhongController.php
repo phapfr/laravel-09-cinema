@@ -35,4 +35,23 @@ class PhongController extends Controller
             }
         }
     }
+
+    public function getData()
+    {
+        $data = Phong::get();
+
+        return response()->json([
+            'list'  => $data
+        ]);
+    }
+
+    public function changeStatus($id)
+    {
+        $phong = Phong::where('id', $id)->first();
+
+        if($phong) {
+            $phong->tinh_trang = !$phong->tinh_trang;
+            $phong->save();
+        }
+    }
 }
