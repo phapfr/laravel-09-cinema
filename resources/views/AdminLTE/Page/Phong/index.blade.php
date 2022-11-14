@@ -55,6 +55,65 @@
                     <tbody>
 
                     </tbody>
+                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Chúng ta sẽ xóa Phòng, đồng nghĩa với việc Xóa tất cả Ghế của Phòng đó.</p>
+                                <p><b>Lưu ý:</b> Việc này không thể hoàn tác, hãy cẩn thận!</p>
+                                <input type="hidden" class="form-control" id="delete_id" placeholder="Nhập vào id cần xóa">
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button id="delete_accpect" type="button" class="btn btn-primary" data-dismiss="modal">Chấp Nhận Xóa</button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" class="form-control" id="edit_id">
+                                <div class="form-group">
+                                    <label>Tên Phòng</label>
+                                    <input type="text" class="form-control" id="edit_ten_phong" placeholder="Nhập vào tên phòng">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tình Trạng</label>
+                                    <select id="edit_tinh_trang" class="form-control">
+                                        <option value="1">Còn Kinh Doanh</option>
+                                        <option value="0">Dừng Kinh Doanh</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Số Ghế Hàng Dọc</label>
+                                    <input type="number" class="form-control" id="edit_hang_doc">
+                                </div>
+                                <div class="form-group">
+                                    <label>Số Ghế Hàng Ngang</label>
+                                    <input type="number" class="form-control" id="edit_hang_ngang">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button id="update_accpect" type="button" class="btn btn-primary" data-dismiss="modal">Cập Nhật</button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
                 </table>
             </div>
         </div>
@@ -83,6 +142,22 @@
                 });
         });
 
+        $("#update_accpect").click(function() {
+            var payload = {
+                'id'            :   $("#edit_id").val(),
+                'ten_phong'     :   $("#edit_ten_phong").val(),
+                'tinh_trang'    :   $("#edit_tinh_trang").val(),
+                'hang_doc'      :   $("#edit_hang_doc").val(),
+                'hang_ngang'    :   $("#edit_hang_ngang").val(),
+            };
+            axios
+                .post('/admin/phong/update', payload)
+                .then((res) => {
+                    loadData();
+                    toastr.success('Đã cập nhật thành công!');
+                });
+        });
+
         function loadData() {
             axios
                 .get('/admin/phong/data')
@@ -107,8 +182,8 @@
                 noi_dung += '<td class="align-middle text-center">'+ value.hang_doc +'</td>';
                 noi_dung += '<td class="align-middle text-center">'+ value.hang_ngang +'</td>';
                 noi_dung += '<td class="text-nowrap text-center align-middle">';
-                noi_dung += '<button class="btn btn-info mr-1">Cập Nhật</button>';
-                noi_dung += '<button class="btn btn-danger">Xóa Phòng</button>';
+                noi_dung += '<button data-id="'+ value.id +'" class="edit btn btn-info mr-1" data-toggle="modal" data-target="#editModal">Cập Nhật</button>';
+                noi_dung += '<button data-id="'+ value.id +'" class="del btn btn-danger" data-toggle="modal" data-target="#deleteModal">Xóa Phòng</button>';
                 noi_dung += '</td>';
                 noi_dung += '</tr>';
             });
@@ -125,6 +200,35 @@
                     toastr.success('Đã đổi trạng thái thành công!');
                 });
         });
+
+        $("body").on('click', '.del', function() {
+            var id = $(this).data('id');
+            $("#delete_id").val(id);
+        });
+
+        $("body").on('click', '.edit', function() {
+            var id = $(this).data('id');
+            axios
+                .get('/admin/phong/edit/' + id)
+                .then((res) => {
+                    var phong = res.data.data;
+                    $("#edit_id").val(phong.id);
+                    $("#edit_ten_phong").val(phong.ten_phong);
+                    $("#edit_hang_ngang").val(phong.hang_ngang);
+                    $("#edit_hang_doc").val(phong.hang_doc);
+                    $("#edit_tinh_trang").val(phong.tinh_trang);
+                });
+        });
+
+        $("#delete_accpect").click(function() {
+            var id_can_xoa = $("#delete_id").val();
+            axios
+                .get('/admin/phong/delete/' + id_can_xoa)
+                .then((res) => {
+                    loadData();
+                    toastr.success('Đã xóa phòng kèm ghế thành công!');
+                });
+        })
 
         loadData();
 

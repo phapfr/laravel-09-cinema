@@ -36,6 +36,19 @@ class PhongController extends Controller
         }
     }
 
+    public function update(Request $request)
+    {
+        $phong = Phong::where('id', $request->id)->first();
+
+        if($phong) {
+            $phong->ten_phong   = $request->ten_phong;
+            $phong->tinh_trang  = $request->tinh_trang;
+            $phong->hang_ngang  = $request->hang_ngang;
+            $phong->hang_doc    = $request->hang_doc;
+            $phong->save();
+        }
+    }
+
     public function getData()
     {
         $data = Phong::get();
@@ -53,5 +66,24 @@ class PhongController extends Controller
             $phong->tinh_trang = !$phong->tinh_trang;
             $phong->save();
         }
+    }
+
+    public function destroy($id)
+    {
+        $phong = Phong::where('id', $id)->first();
+
+        if($phong) {
+            Ghe::where('id_phong', $id)->delete();
+            $phong->delete();
+        }
+    }
+
+    public function edit($id)
+    {
+        $phong = Phong::where('id', $id)->first();
+
+        return response()->json([
+            'data'  => $phong
+        ]);
     }
 }
