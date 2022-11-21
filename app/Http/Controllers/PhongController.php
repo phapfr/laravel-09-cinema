@@ -46,6 +46,21 @@ class PhongController extends Controller
             $phong->hang_ngang  = $request->hang_ngang;
             $phong->hang_doc    = $request->hang_doc;
             $phong->save();
+
+            // Xóa sạch ghế trong phòng
+            Ghe::where('id_phong', $request->id)->delete();
+            // Tạo mới lại số ghế $request->hang_doc * $request->hang_ngang
+            for($dong = 1; $dong <= $request->hang_ngang; $dong++) {
+                $chu = chr($dong + 64);
+                for($cot = 1; $cot <= $request->hang_doc; $cot++) {
+                    $ten_ghe = $chu . $cot;
+                    Ghe::create([
+                        'ten_ghe'       => $ten_ghe,
+                        'tinh_trang'    => 1,
+                        'id_phong'      => $request->id,
+                    ]);
+                }
+            }
         }
     }
 
@@ -84,6 +99,15 @@ class PhongController extends Controller
 
         return response()->json([
             'data'  => $phong
+        ]);
+    }
+
+    public function getDataGhe($id_phong)
+    {
+        $data = Ghe::where('id_phong', $id_phong)->get();
+
+        return response()->json([
+            'danh_sach_ghe'  => $data
         ]);
     }
 }
