@@ -23,3 +23,4 @@
 <link rel="stylesheet" href="/assets_admin_lte/plugins/summernote/summernote-bs4.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

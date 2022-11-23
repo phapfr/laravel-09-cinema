@@ -1,8 +1,13 @@
 <?php
 
 use App\Http\Controllers\PhongController;
+use App\Http\Controllers\TestController;
+use App\Models\Phong;
 use Illuminate\Support\Facades\Route;
 
+
+Route::get('/', [TestController::class, 'index']);
+Route::get('/test', [TestController::class, 'jquery']);
 
 Route::group(['prefix' => '/admin'],function() {
     Route::group(['prefix' => '/phong'], function() {
@@ -14,5 +19,7 @@ Route::group(['prefix' => '/admin'],function() {
         Route::get('/change-status/{id}', [PhongController::class, 'changeStatus']);
         Route::get('/delete/{id}', [PhongController::class, 'destroy']);
         Route::get('/edit/{id}', [PhongController::class, 'edit']);
+
+        Route::get('/data-ghe/{id_phong}', [PhongController::class, 'getDataGhe']);
     });
 });
