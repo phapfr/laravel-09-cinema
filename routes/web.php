@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PhimController;
 use App\Http\Controllers\PhongController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,4 +16,12 @@ Route::group(['prefix' => '/admin'],function() {
         Route::get('/delete/{id}', [PhongController::class, 'destroy']);
         Route::get('/edit/{id}', [PhongController::class, 'edit']);
     });
+
+    Route::group(['prefix' => '/phim'], function() {
+        Route::get('/index', [PhimController::class, 'index']);
+        Route::post('/create', [PhimController::class, 'store']);
+
+        Route::get('/data' , [PhimController::class, 'getData']);
+    });
+
 });
