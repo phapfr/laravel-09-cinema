@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PhimController;
 use App\Http\Controllers\PhongController;
 use App\Http\Controllers\TestController;
 use App\Models\Phong;
@@ -22,4 +23,12 @@ Route::group(['prefix' => '/admin'],function() {
 
         Route::get('/data-ghe/{id_phong}', [PhongController::class, 'getDataGhe']);
     });
+
+    Route::group(['prefix' => '/phim'], function() {
+        Route::get('/index', [PhimController::class, 'index']);
+        Route::post('/create', [PhimController::class, 'store']);
+
+        Route::get('/data' , [PhimController::class, 'getData']);
+    });
+
 });
