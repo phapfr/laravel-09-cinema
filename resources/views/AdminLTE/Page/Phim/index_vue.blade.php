@@ -98,7 +98,7 @@
                                     <td class="align-midlle">@{{ value.dao_dien }}</td>
                                     <td class="align-midlle">@{{ value.dien_vien }}</td>
                                     <td class="align-midlle">@{{ value.thoi_luong }}</td>
-                                    <td class="align-midlle">@{{ value.mo_ta }}</td>
+                                    <td class="align-midlle" v-html="value.mo_ta"></td>
                                     <td class="align-midlle">@{{ value.the_loai }}</td>
                                     <td class="align-midlle">
                                         <img v-bind:src="value.avatar" class="img-fluid" style="max-width: 200px;">
@@ -112,7 +112,7 @@
                                         <p v-if="value.tinh_trang == 2">Sắp Chiếu</p>
                                     </td>
                                     <td class="align-midlle text-nowrap">
-                                        <button v-on:click="phim_update = value" data-toggle="modal" data-target="#updateModal" class="btn btn-info">Cập Nhật</button>
+                                        <button v-on:click="showUpdate(value)" data-toggle="modal" data-target="#updateModal" class="btn btn-info">Cập Nhật</button>
                                         <button v-on:click="phim_xoa = value" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Xóa Phim</button>
                                     </td>
                                 </tr>
@@ -173,7 +173,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Mô Tả</label>
-                                            <textarea v-model="phim_update.mo_ta" id="mo_ta" class="form-control" cols="30" rows="10"></textarea>
+                                            <textarea name="update_mo_ta" id="update_mo_ta" class="form-control" cols="30" rows="10"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Thể Loại</label>
@@ -225,8 +225,13 @@
             this.loadPhim();
         },
         methods :   {
+            showUpdate(value) {
+                this.phim_update = value;
+                CKEDITOR.instances['update_mo_ta'].setData(value.mo_ta);
+            },
             createPhim() {
                 this.them_moi.slug_ten_phim = this.slug;
+                this.them_moi.mo_ta = CKEDITOR.instances['mo_ta'].getData();
                 axios
                     .post('/admin/phim/index-vue' , this.them_moi)
                     .then((res) => {
@@ -264,6 +269,7 @@
                     });
             },
             capNhatPhimServer() {
+                this.phim_update.mo_ta = CKEDITOR.instances['update_mo_ta'].getData();
                 axios
                     .post('/admin/phim/update' , this.phim_update)
                     .then((res) => {
@@ -302,6 +308,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.19.1/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('mo_ta'); // replace name mô tả
+    CKEDITOR.replace('update_mo_ta'); // replace name mô tả
 </script>
 @endsection
 

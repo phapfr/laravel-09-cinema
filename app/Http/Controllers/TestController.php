@@ -15,6 +15,6 @@ class TestController extends Controller
 
     public function jquery()
     {
-        return view('jquery');
+       return view('AdminRocker.page.test');
     }
 }
