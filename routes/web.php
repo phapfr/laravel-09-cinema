@@ -27,8 +27,13 @@ Route::group(['prefix' => '/admin'],function() {
     Route::group(['prefix' => '/phim'], function() {
         Route::get('/index', [PhimController::class, 'index']);
         Route::post('/create', [PhimController::class, 'store']);
-
         Route::get('/data' , [PhimController::class, 'getData']);
+
+        Route::get('/index-vue', [PhimController::class, 'indexVue']);
+        Route::post('/index-vue', [PhimController::class, 'storeVue']);
+
+        Route::post('/delete', [PhimController::class, 'destroy']);
+        Route::post('/update', [PhimController::class, 'update']);
     });
 
 });
