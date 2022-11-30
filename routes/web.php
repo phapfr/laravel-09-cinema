@@ -37,3 +37,7 @@ Route::group(['prefix' => '/admin'],function() {
     });
 
 });
+
+Route::group(['prefix' => 'laravel-filemanager'], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});

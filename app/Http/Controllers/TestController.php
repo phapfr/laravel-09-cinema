@@ -15,6 +15,8 @@ class TestController extends Controller
 
     public function jquery()
     {
+        dd(phpinfo());
+
        return view('AdminRocker.page.test');
     }
 }

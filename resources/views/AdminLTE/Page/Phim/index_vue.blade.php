@@ -44,7 +44,15 @@
                     </div>
                     <div class="form-group">
                         <label>Avatar</label>
-                        <input v-model="them_moi.avatar" type="text" class="form-control" placeholder="Nhập vào link ảnh">
+                        <div class="input-group">
+                            <input id="hinh_anh" class="form-control" type="text" name="filepath">
+                            <span class="input-group-prepend">
+                                <a id="lfm" data-input="hinh_anh" data-preview="holder" class="btn btn-primary">
+                                    <i class="fa fa-picture-o"></i> Choose
+                                </a>
+                            </span>
+                        </div>
+                        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
                     </div>
                     <div class="form-group">
                         <label>Trailer</label>
@@ -181,7 +189,17 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Avatar</label>
-                                            <input v-model="phim_update.avatar" type="text" class="form-control" placeholder="Nhập vào link ảnh">
+                                            <div class="input-group">
+                                                <input id="hinh_anh_update" class="form-control" type="text" name="filepath">
+                                                <span class="input-group-prepend">
+                                                    <a id="lfm_update" data-input="hinh_anh_update" data-preview="holder_update" class="btn btn-primary">
+                                                        <i class="fa fa-picture-o"></i> Choose
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <div id="holder_update" style="margin-top:15px;max-height:100px;">
+
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Trailer</label>
@@ -228,10 +246,14 @@
             showUpdate(value) {
                 this.phim_update = value;
                 CKEDITOR.instances['update_mo_ta'].setData(value.mo_ta);
+                $("#hinh_anh_update").val(value.avatar);
+                var text = '<img src="'+ value.avatar + '" style="margin-top:15px;max-height:100px;">'
+                $("#holder_update").html(text);
             },
             createPhim() {
                 this.them_moi.slug_ten_phim = this.slug;
                 this.them_moi.mo_ta = CKEDITOR.instances['mo_ta'].getData();
+                this.them_moi.avatar = $("#hinh_anh").val();
                 axios
                     .post('/admin/phim/index-vue' , this.them_moi)
                     .then((res) => {
@@ -309,6 +331,14 @@
 <script>
     CKEDITOR.replace('mo_ta'); // replace name mô tả
     CKEDITOR.replace('update_mo_ta'); // replace name mô tả
+</script>
+<script>
+    var route_prefix = "/laravel-filemanager";
+</script>
+<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+<script>
+    $("#lfm").filemanager('image', {prefix : route_prefix});
+    $("#lfm_update").filemanager('image', {prefix : route_prefix});
 </script>
 @endsection
 
