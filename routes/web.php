@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LichChieuController;
 use App\Http\Controllers\PhimController;
 use App\Http\Controllers\PhongController;
 use App\Http\Controllers\TestController;
@@ -34,6 +35,10 @@ Route::group(['prefix' => '/admin'],function() {
 
         Route::post('/delete', [PhimController::class, 'destroy']);
         Route::post('/update', [PhimController::class, 'update']);
+    });
+
+    Route::group(['prefix' => '/lich-chieu'], function() {
+        Route::get('/index', [LichChieuController::class, 'index']);
     });
 
 });

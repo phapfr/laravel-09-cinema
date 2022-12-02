@@ -292,6 +292,7 @@
             },
             capNhatPhimServer() {
                 this.phim_update.mo_ta = CKEDITOR.instances['update_mo_ta'].getData();
+                this.phim_update.avatar = $("#hinh_anh_update").val();
                 axios
                     .post('/admin/phim/update' , this.phim_update)
                     .then((res) => {
