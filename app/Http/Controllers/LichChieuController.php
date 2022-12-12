@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LichChieu;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LichChieuController extends Controller
@@ -12,69 +13,22 @@ class LichChieuController extends Controller
         return view('AdminLTE.Page.LichChieu.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
-    }
+        $ngay_bat_dau           = Carbon::createFromFormat("Y-m-d", $request->ngay_bat_dau)->startOfDay();
+        $ngay_ket_thuc          = Carbon::createFromFormat("Y-m-d", $request->ngay_ket_thuc)->addDay()->startOfDay();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\LichChieu  $lichChieu
-     * @return \Illuminate\Http\Response
-     */
-    public function show(LichChieu $lichChieu)
-    {
-        //
-    }
+        $gio_bat_dau  = Carbon::parse($request->gio_bat_dau);
+        $gio_ket_thuc = Carbon::parse($request->gio_ket_thuc);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\LichChieu  $lichChieu
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(LichChieu $lichChieu)
-    {
-        //
-    }
+        while($ngay_ket_thuc->diffInDays($ngay_bat_dau) > 0) {
+            $thu_cua_ngay = $ngay_bat_dau->dayOfWeek;
+            $ten          = "thu_" . $thu_cua_ngay;
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\LichChieu  $lichChieu
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, LichChieu $lichChieu)
-    {
-        //
-    }
+            if(isset($request->$ten)) {
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\LichChieu  $lichChieu
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(LichChieu $lichChieu)
-    {
-        //
+            }
+            $ngay_bat_dau->addDay();
+        }
     }
 }
