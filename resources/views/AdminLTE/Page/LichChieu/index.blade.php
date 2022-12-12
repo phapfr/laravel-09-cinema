@@ -110,7 +110,7 @@
                 axios
                     .post('/admin/lich-chieu/index', this.create_lich)
                     .then((res) => {
-
+                        toastr.success('Đã thêm mới lịch chiếu thành công!');
                     })
                     .catch((res) => {
                         $.each(res.response.data.errors, function(k, v) {

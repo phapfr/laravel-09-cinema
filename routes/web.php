@@ -40,6 +40,9 @@ Route::group(['prefix' => '/admin'],function() {
     Route::group(['prefix' => '/lich-chieu'], function() {
         Route::get('/index', [LichChieuController::class, 'index']);
         Route::post('/index', [LichChieuController::class, 'store']);
+
+        Route::get('/thoi-khoa-bieu', [LichChieuController::class, 'viewThoiKhoaBieu']);
+        Route::get('/data-thoi-khoa-bieu', [LichChieuController::class, 'dataThoiKhoaBieu']);
     });
 
 });

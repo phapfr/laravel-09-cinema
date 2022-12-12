@@ -3,6 +3,7 @@
 
 <head>
     @include('AdminRocker.share.css')
+    @yield('css')
 </head>
 
 <body>
