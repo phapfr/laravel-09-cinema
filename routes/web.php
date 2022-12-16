@@ -41,8 +41,15 @@ Route::group(['prefix' => '/admin'],function() {
         Route::get('/index', [LichChieuController::class, 'index']);
         Route::post('/index', [LichChieuController::class, 'store']);
 
+        Route::get('/data', [LichChieuController::class, 'getData']);
+
         Route::get('/thoi-khoa-bieu', [LichChieuController::class, 'viewThoiKhoaBieu']);
         Route::get('/data-thoi-khoa-bieu', [LichChieuController::class, 'dataThoiKhoaBieu']);
+
+        Route::get('/tao-mot-buoi', [LichChieuController::class, 'viewTaoMotBuoi']);
+        Route::post('/tao-mot-buoi', [LichChieuController::class, 'actionTaoMotBuoi']);
+
+        Route::post('/xoa-lich', [LichChieuController::class, 'destroy']);
     });
 
 });
