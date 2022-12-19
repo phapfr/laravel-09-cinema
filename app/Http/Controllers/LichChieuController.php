@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateLichChieuRequest;
 use App\Http\Requests\XoaLichRequest;
+use App\Models\GheBan;
 use App\Models\LichChieu;
+use App\Models\Phong;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -45,7 +47,7 @@ class LichChieuController extends Controller
         $thoi_gian_bat_dau  = Carbon::create($nam, $thang, $ngay, $gio_bd->hour, $gio_bd->minute, 0);
         $thoi_gian_ket_thuc = Carbon::create($nam, $thang, $ngay, $gio_kt->hour, $gio_kt->minute, 0);
 
-        LichChieu::create([
+        $lich_chieu = LichChieu::create([
             'id_phong'                  => $request->id_phong,
             'id_phim'                   => $request->id_phim,
             'thoi_gian_chieu_chinh'     => $request->thoi_gian_chieu_chinh,
@@ -53,6 +55,18 @@ class LichChieuController extends Controller
             'thoi_gian_bat_dau'         => $thoi_gian_bat_dau,
             'thoi_gian_ket_thuc'        => $thoi_gian_ket_thuc,
         ]);
+
+        // Lấy tất các các ghế của phòng
+        $tat_ca_ghe = Phong::where('phongs.id', $request->id_phong)
+                           ->join('ghes', 'ghes.id_phong', 'phongs.id')
+                           ->get();
+
+        foreach($tat_ca_ghe as $key => $value) {
+            GheBan::create([
+                'id_lich'   => $lich_chieu->id,
+                'ten_ghe'   => $value->ten_ghe,
+            ]);
+        }
     }
 
     public function index()

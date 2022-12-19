@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GheBanController;
 use App\Http\Controllers\LichChieuController;
 use App\Http\Controllers\PhimController;
 use App\Http\Controllers\PhongController;
@@ -50,6 +51,8 @@ Route::group(['prefix' => '/admin'],function() {
         Route::post('/tao-mot-buoi', [LichChieuController::class, 'actionTaoMotBuoi']);
 
         Route::post('/xoa-lich', [LichChieuController::class, 'destroy']);
+
+        Route::get('/danh-sach-ghe/{id_lich}', [GheBanController::class, 'getData']);
     });
 
 });

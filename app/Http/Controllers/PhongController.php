@@ -104,10 +104,12 @@ class PhongController extends Controller
 
     public function getDataGhe($id_phong)
     {
-        $data = Ghe::where('id_phong', $id_phong)->get();
+        $phong = Phong::where('id', $id_phong)->first();
+        $data  = Ghe::where('id_phong', $id_phong)->get();
 
         return response()->json([
-            'danh_sach_ghe'  => $data
+            'danh_sach_ghe'     => $data,
+            'thong_tin_phong'   => $phong,
         ]);
     }
 }
