@@ -16,6 +16,8 @@ class LichChieuController extends Controller
     public function destroy(XoaLichRequest $request)
     {
         LichChieu::where('id', $request->id)->delete();
+
+        GheBan::where('id_lich', $request->id)->delete();
     }
 
     public function getData()
@@ -47,6 +49,47 @@ class LichChieuController extends Controller
         $thoi_gian_bat_dau  = Carbon::create($nam, $thang, $ngay, $gio_bd->hour, $gio_bd->minute, 0);
         $thoi_gian_ket_thuc = Carbon::create($nam, $thang, $ngay, $gio_kt->hour, $gio_kt->minute, 0);
 
+        // Th1 là giờ bắt đầu nằm giữa [thoi_gian_bat_dau và thoi_gian_ket_thuc]
+        $gio_bat_dau  = $thoi_gian_bat_dau->toDateTimeString();
+        $gio_ket_thuc = $thoi_gian_ket_thuc->toDateTimeString();
+        $check_th1 = LichChieu::where('id_phong', $request->id_phong)
+                              ->where('thoi_gian_bat_dau', '<=', $gio_bat_dau)
+                              ->where('thoi_gian_ket_thuc', '>=', $gio_bat_dau)
+                              ->first();
+
+        // Th2 là giờ kết thúc nằm giữa [thoi_gian_bat_dau và thoi_gian_ket_thuc]
+        $check_th2 = LichChieu::where('id_phong', $request->id_phong)
+                              ->where('thoi_gian_bat_dau', '<=', $gio_ket_thuc)
+                              ->where('thoi_gian_ket_thuc', '>=', $gio_ket_thuc)
+                              ->first();
+        // Th3 là giờ bắt đầu và giờ kết thúc bao trùm lên cả [thoi_gian_bat_dau và thoi_gian_ket_thuc]
+        $check_th3 = LichChieu::where('id_phong', $request->id_phong)
+                              ->where('thoi_gian_bat_dau', '>=', $gio_bat_dau)
+                              ->where('thoi_gian_ket_thuc', '<=', $gio_ket_thuc)
+                              ->first();
+
+        // $check = LichChieu::where('id_phong', $request->id_phong)
+        //                   ->where(function($query) use ($gio_bat_dau, $gio_ket_thuc) {
+        //                         $query->where(function($query_1) use ($gio_bat_dau) {
+        //                             $query_1->where('thoi_gian_bat_dau', '<=', $gio_bat_dau)
+        //                                     ->where('thoi_gian_ket_thuc', '>=', $gio_bat_dau);
+        //                         })->orWhere(function($query_1) use ($gio_ket_thuc) {
+        //                             $query_1->where('thoi_gian_bat_dau', '<=', $gio_ket_thuc)
+        //                                     ->where('thoi_gian_ket_thuc', '>=', $gio_ket_thuc);
+        //                         })->orWhere(function($query_1) use ($gio_bat_dau, $gio_ket_thuc) {
+        //                             $query_1->where('thoi_gian_bat_dau', '>=', $gio_bat_dau)
+        //                                     ->where('thoi_gian_ket_thuc', '<=', $gio_ket_thuc);
+        //                         });
+        //                   })
+        //                   ->first();
+
+        if($check_th1 || $check_th2 || $check_th3) {
+            return response()->json([
+                'status'    => false,
+                'message'   => 'Lịch chiếu đã bị trùng'
+            ]);
+        }
+
         $lich_chieu = LichChieu::create([
             'id_phong'                  => $request->id_phong,
             'id_phim'                   => $request->id_phim,
@@ -67,6 +110,11 @@ class LichChieuController extends Controller
                 'ten_ghe'   => $value->ten_ghe,
             ]);
         }
+
+        return response()->json([
+            'status'    => true,
+            'message'   => 'Đã tạo lịch chiếu thành công'
+        ]);
     }
 
     public function index()

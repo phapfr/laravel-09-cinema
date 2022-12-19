@@ -176,17 +176,14 @@
                                 <div class="col-md-12">
                                     <table class="table table-bordered">
                                         <tr v-for="i in (0, tt_phong.hang_ngang)">
-                                            <td class="text-center align-middle" v-for="j in (0, tt_phong.hang_doc)">
-                                                <template v-if="ds_ghe[(i - 1) * tt_phong.hang_doc +  j - 1].co_the_ban == 1">
-                                                    <span>@{{ ds_ghe[(i - 1) * tt_phong.hang_doc +  j - 1].ten_ghe }}</span>
-                                                </template>
-                                                <template v-else>
-                                                    <span class="text-danger">
-                                                        @{{ ds_ghe[(i - 1) * tt_phong.hang_doc +  j - 1].ten_ghe }}
-                                                        <br> (Không thể Bán)
-                                                    </span>
-                                                </template>
-                                            </td>
+                                            <template v-for="j in (0, tt_phong.hang_doc)">
+                                                <td v-on:click="doiTrangThaiGhe(ds_ghe[(i - 1) * tt_phong.hang_doc +  j - 1])" v-if="ds_ghe[(i - 1) * tt_phong.hang_doc +  j - 1].co_the_ban == 1" style="background-color: #e6e7e9" class="text-center align-middle" >
+                                                    @{{ ds_ghe[(i - 1) * tt_phong.hang_doc +  j - 1].ten_ghe }}
+                                                </td>
+                                                <td v-on:click="doiTrangThaiGhe(ds_ghe[(i - 1) * tt_phong.hang_doc +  j - 1])" v-else class="bg-danger text-center align-middle text-white">
+                                                    @{{ ds_ghe[(i - 1) * tt_phong.hang_doc +  j - 1].ten_ghe }}
+                                                </td>
+                                            </template>
                                         </tr>
                                     </table>
                                 </div>
@@ -224,6 +221,19 @@
             this.loadLichChieu();
         },
         methods :   {
+            doiTrangThaiGhe(v) {
+                axios
+                    .post('/admin/lich-chieu/danh-sach-ghe/doi-trang-thai', v)
+                    .then((res) => {
+                        toastr.success('Đã đổi trạng thái ghế thành công!');
+                    });
+
+                axios
+                    .get('/admin/lich-chieu/danh-sach-ghe/' + v.id_lich)
+                    .then((res) => {
+                        this.ds_ghe = res.data.data;
+                    });
+            },
             layDataGhePhong(v) {
                 axios
                     .get('/admin/phong/data-ghe/' + v.id_phong)
@@ -235,7 +245,6 @@
                     .get('/admin/lich-chieu/danh-sach-ghe/' + v.id)
                     .then((res) => {
                         this.ds_ghe = res.data.data;
-                        console.log(this.ds_ghe);
                     });
 
             },
@@ -256,7 +265,12 @@
                 axios
                     .post('/admin/lich-chieu/tao-mot-buoi', this.create_lich)
                     .then((res) => {
-                        toastr.success('Đã thêm mới lịch chiếu thành công!');
+                        if(res.data.status) {
+                            toastr.success(res.data.message);
+                            this.loadLichChieu();
+                        } else {
+                            toastr.error(res.data.message);
+                        }
                     })
                     .catch((res) => {
                         $.each(res.response.data.errors, function(k, v) {
