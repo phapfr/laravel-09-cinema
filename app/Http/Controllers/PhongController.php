@@ -10,7 +10,7 @@ class PhongController extends Controller
 {
     public function index()
     {
-        return view('AdminLTE.Page.Phong.index');
+        return view('AdminRocker.page.Phong.index');
     }
 
     public function store(Request $request)

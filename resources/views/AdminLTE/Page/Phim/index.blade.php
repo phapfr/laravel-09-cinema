@@ -141,11 +141,11 @@
                             noi_dung += '<td class="align-middle">'+ value.ten_phim +'</td>';
                             noi_dung += '<td class="align-middle">'+ value.ngay_khoi_chieu +'</td>';
                             noi_dung += '<td class="align-middle">'+ value.dao_dien +'</td>';
-                            noi_dung += '<td class="align-middle">'+ value.dien_vien +'</td>';
+                            noi_dung += '<td class="align-middle">'+ value.dien_vien.substring(0, 50) +' ...</td>';
                             noi_dung += '<td class="align-middle">'+ value.thoi_luong +'</td>';
-                            noi_dung += '<td class="align-middle">'+ value.mo_ta +'</td>';
+                            noi_dung += '<td class="align-middle">'+ value.mo_ta.substring(0, 100) +' ...</td>';
                             noi_dung += '<td class="align-middle">'+ value.the_loai +'</td>';
-                            noi_dung += '<td class="align-middle"><img width="350px" height="350px" src="'+value.avatar+'" alt=""></td>';
+                            noi_dung += '<td class="align-middle"><img  src="'+value.avatar+'" alt=""></td>';
                             noi_dung += '<td class="align-middle"><a target="_blank" href="'+value.trailer+'">TRAILER</a></td>';
                             noi_dung += '<td class="align-middle text-nowrap">';
                             if(value.tinh_trang == 1) {

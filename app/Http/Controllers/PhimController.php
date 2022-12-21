@@ -34,7 +34,7 @@ class PhimController extends Controller
 
     public function getData()
     {
-        $data = Phim::all();
+        $data = Phim::orderByDESC('created_at')->get();
 
         return response()->json([
             'phim'  => $data,
@@ -43,7 +43,7 @@ class PhimController extends Controller
 
     public function indexVue()
     {
-        return view('AdminLTE.Page.Phim.index_vue');
+        return view('AdminRocker.page.Phim.index_vue');
     }
 
     public function storeVue(CreatePhimRequest $request)

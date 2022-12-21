@@ -1,4 +1,4 @@
-@extends('AdminRocker.share.master')
+@extends('AdminLTE.Share.master')
 @section('noi_dung')
     <div class="row" >
         <div class="col-md-5">
