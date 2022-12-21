@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateLichChieuRequest;
+use App\Http\Requests\TaoLichChieuMotBuoiRequest;
 use App\Http\Requests\XoaLichRequest;
 use App\Models\GheBan;
 use App\Models\LichChieu;
@@ -37,7 +38,7 @@ class LichChieuController extends Controller
         return view('AdminLTE.Page.LichChieu.view_mot_buoi');
     }
 
-    public function actionTaoMotBuoi(Request $request)
+    public function actionTaoMotBuoi(TaoLichChieuMotBuoiRequest $request)
     {
         $ngay_chieu = Carbon::createFromFormat("Y-m-d", $request->ngay_chieu);
         $ngay       = $ngay_chieu->day;
@@ -46,12 +47,28 @@ class LichChieuController extends Controller
         $gio_bd     = Carbon::parse($request->gio_bat_dau);
         $gio_kt     = Carbon::parse($request->gio_ket_thuc);
 
+
+        $now = Carbon::today();
+        if( $ngay_chieu < $now) {
+            return response()->json([
+                'status'    => false,
+                'message'   => 'Ngày chiếu phim phải lớn hơn hoặc bằng ngày hôm nay!'
+            ]);
+        }
+        if($gio_bd > $gio_kt ) {
+            return response()->json([
+                'status'    => false,
+                'message'   => 'Giờ kết thúc phải lớn hơn giờ bắt đầu!'
+            ]);
+        }
         $thoi_gian_bat_dau  = Carbon::create($nam, $thang, $ngay, $gio_bd->hour, $gio_bd->minute, 0);
         $thoi_gian_ket_thuc = Carbon::create($nam, $thang, $ngay, $gio_kt->hour, $gio_kt->minute, 0);
 
         // Th1 là giờ bắt đầu nằm giữa [thoi_gian_bat_dau và thoi_gian_ket_thuc]
         $gio_bat_dau  = $thoi_gian_bat_dau->toDateTimeString();
         $gio_ket_thuc = $thoi_gian_ket_thuc->toDateTimeString();
+
+
         $check_th1 = LichChieu::where('id_phong', $request->id_phong)
                               ->where('thoi_gian_bat_dau', '<=', $gio_bat_dau)
                               ->where('thoi_gian_ket_thuc', '>=', $gio_bat_dau)
