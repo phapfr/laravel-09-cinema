@@ -39,7 +39,7 @@
                 </div>
                 <div class="card-body">
                     <table id="table" class="table table-bordered">
-                        <thead>
+                        <thead class="bg-primary">
                             <tr>
                                 <th class="text-center">#</th>
                                 <th class="text-center">Tên phòng</th>
@@ -51,15 +51,15 @@
                         </thead>
                         <tbody>
                             <tr v-for="(value, key) in ds_phong">
-                                <th class="align-midlle text-center">@{{ key + 1 }}</th>
-                                <td class="align-midlle">@{{ value.ten_phong }}</td>
-                                <td class="align-midlle text-nowrap">
+                                <th class="align-middle text-center">@{{ key + 1 }}</th>
+                                <td class="align-middle">@{{ value.ten_phong }}</td>
+                                <td class="align-middle text-center text-nowrap">
                                     <button v-on:click="changeStatus(value.id)" class="btn btn-danger" v-if="value.tinh_trang == 0">Dừng Kinh Doanh</button>
                                     <button v-on:click="changeStatus(value.id)" class="btn btn-primary" v-else>Còn Kinh Doanh</button>
                                 </td>
-                                <td class="align-midlle">@{{ value.hang_doc }}</td>
-                                <td class="align-midlle">@{{ value.hang_ngang }}</td>
-                                <td class="align-midlle text-nowrap">
+                                <td class="align-middle text-center">@{{ value.hang_doc }}</td>
+                                <td class="align-middle text-center">@{{ value.hang_ngang }}</td>
+                                <td class="align-middle text-center text-nowrap">
                                     <button v-on:click="loadGhe(value.id, value.hang_ngang, value.hang_doc)" class="ghe btn btn-primary " style="margin-right: 5px" data-bs-toggle="modal" data-bs-target="#gheModal">Xem Ghế</button>
                                     <button v-on:click="phong_update = value" data-bs-toggle="modal" data-bs-target="#editModal" style="margin-right: 5px" class="btn btn-info">Cập Nhật</button>
                                     <button v-on:click="delete_phong = value"  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa Phòng</button>
@@ -148,7 +148,9 @@
                                         MÀN HÌNH
                                     </div>
                                     <table class="table table-bordered" id="table_ghe">
+                                        <thead>
 
+                                        </thead>
                                     </table>
                                 </div>
                                 <div class="modal-footer">
@@ -183,6 +185,7 @@
                         .then((res) => {
                             toastr.success('Đã thêm mới phòng thành công!');
                             this.loadPhong();
+                            this.them_moi = {};
                         })
                         .catch((res) => {
                             $.each(res.response.data.errors, function(k, v) {
@@ -251,7 +254,7 @@
                                 }
                                 noi_dung += '</tr>';
                             }
-                            $("#table_ghe").html(noi_dung);
+                            $("#table_ghe thead").html(noi_dung);
                     });
                 },
 

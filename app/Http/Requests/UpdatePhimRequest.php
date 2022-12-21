@@ -22,7 +22,7 @@ class UpdatePhimRequest extends FormRequest
             'dien_vien'         => 'required',
             'the_loai'          => 'required',
             'thoi_luong'        => 'required|numeric|min:5',
-            'mo_ta'             => 'required|min:20|max:200',
+            'mo_ta'             => 'required|min:20',
             'avatar'            => 'required',
             'trailer'           => 'required',
             'tinh_trang'        => 'required|numeric|max:2|min:0',

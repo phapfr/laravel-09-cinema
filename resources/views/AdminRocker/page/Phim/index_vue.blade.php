@@ -7,65 +7,67 @@
                     Thêm Mới Phim
                 </div>
                 <div class="card-body">
-                    <div class="form-group mt-1">
-                        <label>Tên Phim</label>
-                        <input v-on:keyup="chuyenThangTenPhimSangSlug()" v-model="them_moi.ten_phim" type="text" class="form-control" placeholder="Nhập vào tên phim">
-                    </div>
-                    <div class="form-group mt-3">
-                        <label>Slug Tên Phim</label>
-                        <input v-model="slug" type="text" class="form-control" placeholder="Nhập vào slug tên phim">
-                    </div>
-                    <div class="form-group mt-3">
-                        <label>Ngày Khởi Chiếu</label>
-                        <input v-model="them_moi.ngay_khoi_chieu" type="date" class="form-control" placeholder="Nhập vào tên phim">
-                    </div>
-                    <div class="form-group mt-3">
-                        <label>Đạo Diễn</label>
-                        <input v-model="them_moi.dao_dien" type="text" class="form-control" placeholder="Nhập vào tên đạo diễn">
-                    </div>
-                    <div class="form-group mt-3">
-                        <label>Diễn Viên</label>
-                        <input v-model="them_moi.dien_vien" type="text" class="form-control" placeholder="Nhập vào tên diễn viên">
-                    </div>
-                    <div class="form-group mt-3">
-                        <label>Thời Lượng</label>
-                        <input v-model="them_moi.thoi_luong" type="number" class="form-control" placeholder="Nhập vào phút">
-                    </div>
-                    <div class="form-group mt-3">
-                        <label>Mô Tả</label>
-                        <textarea name="mo_ta" id="mo_ta" class="form-control" cols="30" rows="10"></textarea>
-                    </div>
-                    <div class="form-group mt-3">
-                        <label>Thể Loại</label>
-                        <input v-model="them_moi.the_loai" type="text" class="form-control" placeholder="Nhập vào thể loại">
-                    </div>
-                    <div class="form-group mt-3">
-                        <label>Avatar</label>
-                        <div class="input-group">
-                            <input id="hinh_anh" class="form-control" type="text" name="filepath">
-                            <span class="input-group-prepend">
-                                <a id="lfm" data-input="hinh_anh" data-preview="holder" class="btn btn-primary">
-                                    <i class="fa fa-picture-o"></i> Choose
-                                </a>
-                            </span>
+                    <form id="createPhimForm">
+                        <div class="form-group mt-1">
+                            <label>Tên Phim</label>
+                            <input v-on:keyup="chuyenThangTenPhimSangSlug()" v-model="them_moi.ten_phim" type="text" class="form-control" placeholder="Nhập vào tên phim">
                         </div>
-                        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
-                    </div>
-                    <div class="form-group mt-3">
-                        <label>Trailer</label>
-                        <input v-model="them_moi.trailer" type="text" class="form-control" placeholder="Nhập vào link trailer">
-                    </div>
-                    <div class="form-group mt-3">
-                        <label>Tình Trạng</label>
-                        <select v-model="them_moi.tinh_trang" class="form-control">
-                            <option value="1">Đang Chiếu</option>
-                            <option value="2">Sắp Chiếu</option>
-                            <option value="0">Ngưng Chiếu</option>
-                        </select>
-                    </div>
-                    <div class="form-group mt-3 text-end">
-                       <button class="btn btn-primary" v-on:click="createPhim()">Thêm Mới Phim</button>
-                    </div>
+                        <div class="form-group mt-3">
+                            <label>Slug Tên Phim</label>
+                            <input v-model="slug" type="text" class="form-control" placeholder="Nhập vào slug tên phim">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>Ngày Khởi Chiếu</label>
+                            <input v-model="them_moi.ngay_khoi_chieu" type="date" class="form-control" placeholder="Nhập vào tên phim">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>Đạo Diễn</label>
+                            <input v-model="them_moi.dao_dien" type="text" class="form-control" placeholder="Nhập vào tên đạo diễn">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>Diễn Viên</label>
+                            <input v-model="them_moi.dien_vien" type="text" class="form-control" placeholder="Nhập vào tên diễn viên">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>Thời Lượng</label>
+                            <input v-model="them_moi.thoi_luong" type="number" class="form-control" placeholder="Nhập vào phút">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>Mô Tả</label>
+                            <textarea name="mo_ta" id="mo_ta" class="form-control" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>Thể Loại</label>
+                            <input v-model="them_moi.the_loai" type="text" class="form-control" placeholder="Nhập vào thể loại">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>Avatar</label>
+                            <div class="input-group">
+                                <input id="hinh_anh" class="form-control" type="text" name="filepath">
+                                <span class="input-group-prepend">
+                                    <a id="lfm" data-input="hinh_anh" data-preview="holder" class="btn btn-primary">
+                                        <i class="fa fa-picture-o"></i> Choose
+                                    </a>
+                                </span>
+                            </div>
+                            <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>Trailer</label>
+                            <input v-model="them_moi.trailer" type="text" class="form-control" placeholder="Nhập vào link trailer">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>Tình Trạng</label>
+                            <select v-model="them_moi.tinh_trang" class="form-control">
+                                <option value="1">Đang Chiếu</option>
+                                <option value="2">Sắp Chiếu</option>
+                                <option value="0">Ngưng Chiếu</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3 text-end">
+                           <button class="btn btn-primary" type="button" v-on:click="createPhim()">Thêm Mới Phim</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -96,27 +98,28 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(value, key) in ds_phim">
-                                    <th class="align-midlle text-center">@{{ key + 1 }}</th>
-                                    <td class="align-midlle">@{{ value.ten_phim }}</td>
-                                    <td class="align-midlle">@{{ value.slug_ten_phim }}</td>
-                                    <td class="align-midlle">@{{ value.ngay_khoi_chieu }}</td>
-                                    <td class="align-midlle">@{{ value.dao_dien }}</td>
-                                    <td class="align-midlle">@{{ value.dien_vien }}</td>
-                                    <td class="align-midlle">@{{ value.thoi_luong }}</td>
-                                    <td class="align-midlle" v-html="value.mo_ta"></td>
-                                    <td class="align-midlle">@{{ value.the_loai }}</td>
-                                    <td class="align-midlle">
-                                        <img v-bind:src="value.avatar" class="img-fluid" style="max-width: 200px;">
+                                    <th class="align-middle text-center">@{{ key + 1 }}</th>
+                                    <td class="align-middle">@{{ value.ten_phim }}</td>
+                                    <td class="align-middle">@{{ value.slug_ten_phim }}</td>
+                                    <td class="align-middle">@{{ format_date(value.ngay_khoi_chieu) }}</td>
+                                    <td class="align-middle">@{{ value.dao_dien }}</td>
+                                    <td class="align-middle">@{{ value.dien_vien }}</td>
+                                    <td class="align-middle">@{{ value.thoi_luong }}</td>
+                                    <td class="align-middle" v-html="value.mo_ta.substring(0, 100)+ '...'"></td>
+                                    <td class="align-middle">@{{ value.the_loai }}</td>
+                                    <td class="align-middle">
+                                        <button class="btn btn-light" v-on:click="phim_xoa = value" data-bs-toggle="modal" data-bs-target="#hinhAnhModel"><i class="fa-solid fa-image text-success"></i></button>
+                                        {{-- <img v-bind:src="value.avatar" class="img-fluid" style="max-width: 200px;"> --}}
                                     </td>
-                                    <td class="align-midlle text-nowrap">
+                                    <td class="align-middle text-nowrap">
                                         <a v-bind:href="value.trailer" target="_blank" class="btn btn-primary">Link Video</a>
                                     </td>
-                                    <td class="align-midlle text-nowrap">
-                                        <p v-if="value.tinh_trang == 0">Ngưng Chiếu</p>
-                                        <p v-if="value.tinh_trang == 1">Đang Chiếu</p>
-                                        <p v-if="value.tinh_trang == 2">Sắp Chiếu</p>
+                                    <td class="align-middle text-nowrap">
+                                        <p class="text-warning" v-if="value.tinh_trang == 0" >Ngưng Chiếu</p>
+                                        <p class="text-success" v-if="value.tinh_trang == 1">Đang Chiếu</p>
+                                        <p class="text-primary" v-if="value.tinh_trang == 2">Sắp Chiếu</p>
                                     </td>
-                                    <td class="align-midlle text-nowrap">
+                                    <td class="align-middle text-nowrap">
                                         <button v-on:click="showUpdate(value)" data-bs-toggle="modal" data-bs-target="#updateModal" class="btn btn-info">Cập Nhật</button>
                                         <button v-on:click="phim_xoa = value" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Xóa Phim</button>
                                     </td>
@@ -137,6 +140,27 @@
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                       <button v-on:click="xoaPhimTrenServer()" type="button" class="btn btn-danger" data-bs-dismiss="modal">Xóa Phim</button>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="hinhAnhModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Hình Ảnh</h5>
+                                      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="text-center">
+                                            <img v-bind:src="phim_xoa.avatar" class="img-fluid" style="max-width: 200px;">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     </div>
                                   </div>
                                 </div>
@@ -256,6 +280,11 @@
                     .then((res) => {
                         toastr.success('Đã thêm mới phim thành công!');
                         this.loadPhim();
+                        this.them_moi = {};
+                        this.slug = '';
+                        this.slug = '';
+                        $("#hinh_anh").val("");
+                        CKEDITOR.instances['mo_ta'].setData('');
                     })
                     .catch((res) => {
                         $.each(res.response.data.errors, function(k, v) {
@@ -263,11 +292,17 @@
                         });
                     });
             },
+            format_date(value){
+                if (value) {
+                return moment(String(value)).format('DD/MM/YYYY')
+                }
+            },
             loadPhim()  {
                 axios
                     .get('/admin/phim/data')
                     .then((res) => {
                         this.ds_phim = res.data.phim;
+                        console.log(moment(new Date(this.ds_phim[1].ngay_khoi_chieu)).format("DD/MM/YYYY"));
                     });
             },
             xoaPhimTrenServer() {

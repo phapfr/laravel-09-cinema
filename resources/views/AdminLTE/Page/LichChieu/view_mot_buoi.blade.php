@@ -60,7 +60,7 @@
             </div>
             <div class="card-body">
                 <table class="table table-bordered">
-                    <thead>
+                    <thead class="bg-primary">
                         <tr>
                             <th class="text-center">#</th>
                             <th class="text-center">Phim Chiếu</th>
