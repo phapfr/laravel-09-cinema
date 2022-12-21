@@ -38,6 +38,7 @@ class PhongController extends Controller
 
     public function update(Request $request)
     {
+        // dd($request->all());
         $phong = Phong::where('id', $request->id)->first();
 
         if($phong) {
@@ -62,12 +63,16 @@ class PhongController extends Controller
                 }
             }
         }
+
+        return response()->json([
+            'status' => true,
+            'messs'  => "Cập nhập phòng chiếu thành công!",
+        ]);
     }
 
     public function getData()
     {
         $data = Phong::get();
-
         return response()->json([
             'list'  => $data
         ]);
