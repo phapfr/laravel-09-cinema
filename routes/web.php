@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\GheBanController;
+use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\LichChieuController;
 use App\Http\Controllers\PhimController;
 use App\Http\Controllers\PhongController;
@@ -9,10 +11,13 @@ use App\Models\Phong;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', [TestController::class, 'index']);
-Route::get('/test', [TestController::class, 'jquery']);
+Route::get('/', [HomepageController::class, 'index']);
 
 Route::group(['prefix' => '/admin'],function() {
+    Route::group(['prefix' => '/cau-hinh'], function() {
+        Route::get('/index', [ConfigController::class, 'index']);
+        Route::post('/index', [ConfigController::class, 'store']);
+    });
     Route::group(['prefix' => '/phong'], function() {
         Route::get('/index', [PhongController::class, 'index']);
         Route::get('/data', [PhongController::class, 'getData']);
