@@ -27,7 +27,23 @@
                         <label>Phim Hiển Thị Trang Chủ</label>
                         <select class="form-control" name="id_phim">
                             @foreach ($danhSachPhim as $key => $value)
-                            <option {{ $value->id == $config->id_phim ? 'selected'  : ''}} value="{{ $value->id }}">{{ $value->ten_phim }}</option>
+                            <option {{ isset($config->id_phim) && $value->id == $config->id_phim ? 'selected'  : ''}} value="{{ $value->id }}">{{ $value->ten_phim }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label>Phim Hiển Thị Trang Chủ</label>
+                        <select class="form-control" name="phim_2">
+                            @foreach ($danhSachPhim as $key => $value)
+                            <option {{ isset($config->phim_2) && $value->id == $config->phim_2 ? 'selected'  : ''}} value="{{ $value->id }}">{{ $value->ten_phim }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label>Phim Hiển Thị Trang Chủ</label>
+                        <select class="form-control" name="phim_3">
+                            @foreach ($danhSachPhim as $key => $value)
+                            <option {{ isset($config->phim_3) && $value->id == $config->phim_3 ? 'selected'  : ''}} value="{{ $value->id }}">{{ $value->ten_phim }}</option>
                             @endforeach
                         </select>
                     </div>
