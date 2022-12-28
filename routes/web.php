@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomepageController::class, 'index']);
+Route::get('/test', [HomepageController::class, 'test']);
+
+Route::get('/login', [HomepageController::class, 'viewLogin']);
+
+Route::get('/chi-tiet-phim/{id}', [HomepageController::class, 'chiTietPhim']);
 
 Route::group(['prefix' => '/admin'],function() {
     Route::group(['prefix' => '/cau-hinh'], function() {
