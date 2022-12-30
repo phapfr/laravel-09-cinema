@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\GheBanController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\LichChieuController;
@@ -14,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomepageController::class, 'index']);
 Route::get('/test', [HomepageController::class, 'test']);
 
-Route::get('/login', [HomepageController::class, 'viewLogin']);
+Route::get('/login', [CustomerController::class, 'viewLogin']);
+Route::post('/login', [CustomerController::class, 'actionLogin']);
+Route::get('/register', [CustomerController::class, 'viewRegister']);
+Route::post('/register', [CustomerController::class, 'actionRegister']);
+Route::get('/active/{hash}', [CustomerController::class, 'actionActive']);
 
 Route::get('/chi-tiet-phim/{id}', [HomepageController::class, 'chiTietPhim']);
 
