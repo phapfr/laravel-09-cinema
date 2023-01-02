@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomepageController::class, 'index']);
 Route::get('/test', [HomepageController::class, 'test']);
 
+Route::get('/update-password/{hash}', [CustomerController::class, 'viewUpdatePassword']);
+Route::post('/update-password', [CustomerController::class, 'actionUpdatePassword']);
+
+Route::get('/reset-password', [CustomerController::class, 'viewResetPassword']);
+Route::post('/reset-password', [CustomerController::class, 'actionResetPassword']);
 Route::get('/login', [CustomerController::class, 'viewLogin']);
 Route::post('/login', [CustomerController::class, 'actionLogin']);
 Route::get('/register', [CustomerController::class, 'viewRegister']);
