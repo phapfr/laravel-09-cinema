@@ -21,7 +21,7 @@
         </div>
         <div class="overlay toggle-icon"></div>
         <footer class="page-footer">
-            <p class="mb-0">Copyright © 2021. All right reserved.</p>
+            <p class="mb-0">Copyright © @php echo date("Y");  @endphp. All right reserved.</p>
         </footer>
     </div>
 

@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterAccountRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\UpdatePasswordRequest;
+use App\Jobs\SendMailJob;
 use App\Mail\KichHoatTaiKhoanMail;
 use App\Models\Customer;
 use Illuminate\Http\Request;
@@ -73,10 +74,15 @@ class CustomerController extends Controller
         $data['password']  = bcrypt($data['password']);
         Customer::create($data);
 
+        // Phân cụm này qua JOB
         $dataMail['ho_va_ten'] = $request->ho_va_ten;
+        $dataMail['email']     = $request->email;
         $dataMail['hash_mail'] = $hash;
 
-        Mail::to($request->email)->send(new KichHoatTaiKhoanMail($dataMail));
+        SendMailJob::dispatch($dataMail);
+
+        // SendMailJob::dispatch($dataMail);
+        // End Phân JOB
 
         toastr()->success('Đã tạo tài khoản thành công!');
         return redirect()->back();

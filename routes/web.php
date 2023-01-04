@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\GheBanController;
@@ -27,6 +28,9 @@ Route::post('/register', [CustomerController::class, 'actionRegister']);
 Route::get('/active/{hash}', [CustomerController::class, 'actionActive']);
 
 Route::get('/chi-tiet-phim/{id}', [HomepageController::class, 'chiTietPhim']);
+
+Route::get('/admin/login', [AdminController::class, 'viewLogin']);
+Route::post('/admin/login', [AdminController::class, 'actionLogin']);
 
 Route::group(['prefix' => '/admin'],function() {
     Route::group(['prefix' => '/cau-hinh'], function() {
@@ -76,6 +80,11 @@ Route::group(['prefix' => '/admin'],function() {
         Route::post('/danh-sach-ghe/doi-trang-thai', [GheBanController::class, 'doiTrangThaiGheBan']);
     });
 
+    Route::group(['prefix' => '/tai-khoan'], function() {
+        Route::get('/index', [AdminController::class, 'index']);
+        Route::get('/index/data', [AdminController::class, 'getData']);
+        Route::post('/create', [AdminController::class, 'store']);
+    });
 });
 
 Route::group(['prefix' => 'laravel-filemanager'], function () {
