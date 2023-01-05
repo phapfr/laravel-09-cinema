@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\GheBanController;
+use App\Http\Controllers\GiaoDichController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\LichChieuController;
 use App\Http\Controllers\PhimController;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/e48c2936-ec56-4452-8e01-9ce7f1b38952', [GheBanController::class, 'huyVeAuto']);
 
 Route::get('/', [HomepageController::class, 'index']);
-Route::get('/auto', [HomepageController::class, 'test']);
+Route::get('/auto', [GiaoDichController::class, 'auto']);
 
 Route::get('/update-password/{hash}', [CustomerController::class, 'viewUpdatePassword']);
 Route::post('/update-password', [CustomerController::class, 'actionUpdatePassword']);

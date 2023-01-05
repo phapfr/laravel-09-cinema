@@ -1413,7 +1413,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="copyright-text">
-                            <p>Copyright &copy; 2021. All Rights Reserved By <a href="/assets_client/index.html">Movflx</a></p>
+                            <p>Copyright Alo &copy; 2021. All Rights Reserved By <a href="/assets_client/index.html">Movflx</a></p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
@@ -1430,5 +1430,15 @@
     @include('client.share.js')
     @yield('js')
 </body>
-
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/63b6e9fcc2f1ac1e202be2e4/1gm1841gk';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
 </html>

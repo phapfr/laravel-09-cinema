@@ -34,6 +34,10 @@ class PhongController extends Controller
                 ]);
             }
         }
+
+        return response()->json([
+            'status'    =>  true,
+        ]);
     }
 
     public function update(Request $request)
