@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\GheBan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GheBanController extends Controller
 {
@@ -21,5 +22,45 @@ class GheBanController extends Controller
         return response()->json([
             'data'  => $data,
         ]);
+    }
+
+    public function giuChoDatVe(Request $request)
+    {
+        $gheBan = GheBan::where('id', $request->id)
+            ->where('trang_thai', '<>', 1)
+            ->first();
+        if ($gheBan) {
+            $gheBan->trang_thai = 2;
+            $gheBan->id_khach_hang = Auth::guard('customer')->user()->id;
+            $gheBan->save();
+
+            return response()->json([
+                'status'    => 1,
+            ]);
+        } else {
+            return response()->json([
+                'status'    => 0,
+            ]);
+        }
+    }
+
+    public function huyChoDatVe(Request $request)
+    {
+        $gheBan = GheBan::where('id', $request->id)
+                        ->where('trang_thai', '<>', 1)
+                        ->first();
+        if ($gheBan) {
+            $gheBan->trang_thai = 0;
+            $gheBan->id_khach_hang = null;
+            $gheBan->save();
+
+            return response()->json([
+                'status'    => 1,
+            ]);
+        } else {
+            return response()->json([
+                'status'    => 0,
+            ]);
+        }
     }
 }

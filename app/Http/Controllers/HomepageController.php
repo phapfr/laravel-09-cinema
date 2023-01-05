@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Config;
+use App\Models\LichChieu;
 use App\Models\Phim;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomepageController extends Controller
@@ -23,12 +25,17 @@ class HomepageController extends Controller
         return view('client.kich_hoat_tai_khoan');
     }
 
-    public function chiTietPhim($id)
+    public function chiTietPhim($slug)
     {
-
+        $parts = explode('-', $slug);
+        preg_match('/\d+$/', $slug, $matches);
+        $id = $matches[0];
         $phim = Phim::where('id' , $id)->first();
+        $lichChieu = LichChieu::where('id_phim', $id)
+                              ->where('thoi_gian_ket_thuc', '>=', Carbon::now()->toDateTimeString())
+                              ->get();
 
-        return view('client.chi_tiet_phim' , compact('phim'));
+        return view('client.chi_tiet_phim' , compact('phim', 'lichChieu'));
     }
 
     public function viewLogin()

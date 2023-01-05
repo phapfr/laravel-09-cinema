@@ -14,6 +14,34 @@ use Illuminate\Support\Facades\DB;
 
 class LichChieuController extends Controller
 {
+    public function viewKhachHangDatVe($id_lich_chieu)
+    {
+        $lichChieu = LichChieu::where('id', $id_lich_chieu)
+                              ->where('thoi_gian_ket_thuc', '>=', Carbon::now()->toDateTimeString())
+                              ->first();
+
+        if($lichChieu) {
+            return view('client.dat_ve', compact('id_lich_chieu'));
+        } else {
+            toastr()->error("Lịch chiếu không tồn tại!");
+            return redirect('/');
+        }
+    }
+
+    public function showDataByIdLich($id_lich_chieu)
+    {
+        $data = GheBan::where('id_lich', $id_lich_chieu)->get();
+        $phong = LichChieu::join('phongs', 'lich_chieus.id_phong', 'phongs.id')
+                          ->where('lich_chieus.id', $id_lich_chieu)
+                          ->first();
+
+        return response()->json([
+            'data'      => $data,
+            'hang_doc'  => $phong->hang_doc,
+            'hang_ngang'=> $phong->hang_ngang,
+        ]);
+    }
+
     public function destroy(XoaLichRequest $request)
     {
         LichChieu::where('id', $request->id)->delete();
