@@ -59,53 +59,18 @@
                                         <img src="/assets_client/img/logo/logo.png" alt="Logo">
                                     </a>
                                 </div>
+
                                 <div class="navbar-wrap main-menu d-none d-lg-flex">
                                     <ul class="navigation">
-                                        <li class="active menu-item-has-children"><a href="#">Home</a>
-                                            <ul class="submenu">
-                                                <li><a href="/assets_client/index.html">Home One</a></li>
-                                                <li class="active"><a href="/assets_client/index-2.html">Home Two</a></li>
-                                            </ul>
+                                        <li class="active menu-item-has-children"><a href="/">Home</a>
                                         </li>
-                                        <li class="menu-item-has-children"><a href="#">Movie</a>
-                                            <ul class="submenu">
-                                                <li><a href="movie.html">Movie</a></li>
-                                                <li><a href="movie-details.html">Movie Details</a></li>
-                                            </ul>
+                                        <li class="menu-item-has-children"><a href="/phim-dang-chieu">Phim Đang Chiếu</a>
                                         </li>
-                                        <li><a href="tv-show.html">tv show</a></li>
-                                        <li><a href="pricing.html">Pricing</a></li>
-                                        <li class="menu-item-has-children"><a href="#">blog</a>
-                                            <ul class="submenu">
-                                                <li><a href="blog.html">Our Blog</a></li>
-                                                <li><a href="blog-details.html">Blog Details</a></li>
-                                            </ul>
+                                        <li class="menu-item-has-children"><a href="/phim-sap-chieu">Phim Sắp Chiếu</a>
+                                        </li>
+                                        <li class="menu-item-has-children"><a href="/bai-viet">Blog</a>
                                         </li>
                                         <li><a href="contact.html">contacts</a></li>
-                                    </ul>
-                                </div>
-                                <div class="header-action d-none d-md-block">
-                                    <ul>
-                                        <li class="d-none d-xl-block">
-                                            <div class="footer-search">
-                                                <form action="#">
-                                                    <input type="text" placeholder="Find Favorite Movie">
-                                                    <button><i class="fas fa-search"></i></button>
-                                                </form>
-                                            </div>
-                                        </li>
-                                        <li class="header-lang">
-                                            <form action="#">
-                                                <div class="/assets_client/icon"><i class="flaticon-globe"></i></div>
-                                                <select id="lang-dropdown">
-                                                    <option value="">En</option>
-                                                    <option value="">Au</option>
-                                                    <option value="">AR</option>
-                                                    <option value="">TU</option>
-                                                </select>
-                                            </form>
-                                        </li>
-                                        <li class="header-btn"><a href="#" class="btn">Sign In</a></li>
                                     </ul>
                                 </div>
                             </nav>

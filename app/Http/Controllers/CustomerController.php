@@ -9,6 +9,7 @@ use App\Http\Requests\UpdatePasswordRequest;
 use App\Jobs\SendMailJob;
 use App\Mail\KichHoatTaiKhoanMail;
 use App\Models\Customer;
+use App\Models\QuanLyBaiViet;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
@@ -129,5 +130,18 @@ class CustomerController extends Controller
         }
 
         return redirect('/login');
+    }
+
+    public function viewBaiViet()
+    {
+        $baiViet = QuanLyBaiViet::where('is_open', 1)->get();
+        return view('client.bai_viet', compact('baiViet'));
+    }
+
+    public function viewBaiVietDetail($id)
+    {
+        $baiVietDetail = QuanLyBaiViet::find($id);
+        // dd($baiVietDetail);
+        return view('client.bai_viet_detail', compact('baiVietDetail'));
     }
 }
