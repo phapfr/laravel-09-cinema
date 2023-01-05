@@ -33,7 +33,7 @@
                     <span>{{ isset($phim) ? $phim->mo_ta : '' }}</span>
                     <div class="movie-details-prime mt-3">
                         @foreach ($lichChieu as $key => $value)
-                        <a href="" class="m-2 banner-btn btn wow fadeInUp">{{ Carbon\Carbon::parse($value->thoi_gian_bat_dau)->format('H:i d/m/Y')  }}</a>
+                        <a href="/client/dat-ve/{{$value->id}}" class="m-2 banner-btn btn wow fadeInUp">{{ Carbon\Carbon::parse($value->thoi_gian_bat_dau)->format('H:i d/m/Y')  }}</a>
                         @endforeach
                         <ul>
                             <li class="share"><a href="#"><i class="fas fa-share-alt"></i> Share</a></li>

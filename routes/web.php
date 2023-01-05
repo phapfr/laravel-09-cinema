@@ -12,9 +12,10 @@ use App\Http\Controllers\TestController;
 use App\Models\Phong;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/e48c2936-ec56-4452-8e01-9ce7f1b38952', [GheBanController::class, 'huyVeAuto']);
 
 Route::get('/', [HomepageController::class, 'index']);
-Route::get('/test', [HomepageController::class, 'test']);
+Route::get('/auto', [HomepageController::class, 'test']);
 
 Route::get('/update-password/{hash}', [CustomerController::class, 'viewUpdatePassword']);
 Route::post('/update-password', [CustomerController::class, 'actionUpdatePassword']);
@@ -27,6 +28,7 @@ Route::get('/register', [CustomerController::class, 'viewRegister']);
 Route::post('/register', [CustomerController::class, 'actionRegister']);
 Route::get('/active/{hash}', [CustomerController::class, 'actionActive']);
 
+
 Route::get('/chi-tiet-phim/{slug}', [HomepageController::class, 'chiTietPhim']);
 
 Route::get('/admin/login', [AdminController::class, 'viewLogin']);
@@ -37,6 +39,7 @@ Route::group(['prefix' => '/client', 'middleware' => 'loginCustomer'],function()
     Route::get('/hien-thi-ghe-ban/{id_lich_chieu}', [LichChieuController::class, 'showDataByIdLich']);
     Route::post('/dat-ve/giu-cho', [GheBanController::class, 'giuChoDatVe']);
     Route::post('/dat-ve/huy-cho', [GheBanController::class, 'huyChoDatVe']);
+    Route::get('/thanh-toan', [GheBanController::class, 'thanhToan']);
 });
 
 Route::group(['prefix' => '/admin', 'middleware' => 'loginAdmin'],function() {

@@ -18,15 +18,20 @@
                             <td v-else-if="ds_ghe[(i - 1) * hang_doc +  j - 1].trang_thai == 1" class="bg-danger text-center align-middle text-white">
                                 @{{ ds_ghe[(i - 1) * hang_doc +  j - 1].ten_ghe }}
                             </td>
-                            <td v-on:click="doiTrangThaiSangKhongDat(ds_ghe[(i - 1) * hang_doc +  j - 1])" v-else class="bg-info text-center align-middle text-white">
-                                @{{ ds_ghe[(i - 1) * hang_doc +  j - 1].ten_ghe }}
-                            </td>
+                            <template v-else>
+                                <td v-on:click="doiTrangThaiSangKhongDat(ds_ghe[(i - 1) * hang_doc +  j - 1])" v-if="ds_ghe[(i - 1) * hang_doc +  j - 1].id_khach_hang == id_login" class="bg-info text-center align-middle text-white">
+                                    @{{ ds_ghe[(i - 1) * hang_doc +  j - 1].ten_ghe }}
+                                </td>
+                                <td v-on:click="doiTrangThaiSangGiuCho(ds_ghe[(i - 1) * hang_doc +  j - 1])" v-else style="background-color: #e6e7e9" class="text-center align-middle">
+                                    @{{ ds_ghe[(i - 1) * hang_doc +  j - 1].ten_ghe }}
+                                </td>
+                            </template>
                         </template>
                     </tr>
                 </table>
             </div>
             <div class="col-md-12" style="text-align: right">
-                <a href="" class="m-1 banner-btn btn wow">Thanh Toán</a>
+                <a href="/client/thanh-toan" class="m-1 banner-btn btn wow">Thanh Toán</a>
             </div>
         </div>
     </div>
@@ -41,6 +46,7 @@
             hang_ngang  :   0,
             ds_ghe      :   [],
             id_lich_chieu : {{ $id_lich_chieu }},
+            id_login    :   {{ $user_login }}
         },
         created() {
             this.loadData();

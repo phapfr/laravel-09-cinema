@@ -10,6 +10,7 @@ use App\Models\LichChieu;
 use App\Models\Phong;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class LichChieuController extends Controller
@@ -19,9 +20,10 @@ class LichChieuController extends Controller
         $lichChieu = LichChieu::where('id', $id_lich_chieu)
                               ->where('thoi_gian_ket_thuc', '>=', Carbon::now()->toDateTimeString())
                               ->first();
+        $user_login = Auth::guard('customer')->user()->id;
 
         if($lichChieu) {
-            return view('client.dat_ve', compact('id_lich_chieu'));
+            return view('client.dat_ve', compact('id_lich_chieu', 'user_login'));
         } else {
             toastr()->error("Lịch chiếu không tồn tại!");
             return redirect('/');

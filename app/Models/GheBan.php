@@ -15,5 +15,9 @@ class GheBan extends Model
         'ten_ghe',
         'id_lich',
         'co_the_ban',
+        'ma_giao_dich',
+        'id_khach_hang',
+        'trang_thai',
+        'id_bill_ngan_hang'
     ];
 }

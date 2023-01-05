@@ -15,8 +15,5 @@ class Ghe extends Model
         'ten_ghe',
         'tinh_trang',
         'id_phong',
-        'ma_giao_dich',
-        'id_khach_hang',
-        'trang_thai',
     ];
 }

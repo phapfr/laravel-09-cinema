@@ -7,6 +7,7 @@ use App\Models\LichChieu;
 use App\Models\Phim;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class HomepageController extends Controller
 {
@@ -22,7 +23,8 @@ class HomepageController extends Controller
 
     public function test()
     {
-        return view('client.kich_hoat_tai_khoan');
+        Log::info("Oke, đã chạy!");
+        // return view('client.kich_hoat_tai_khoan');
     }
 
     public function chiTietPhim($slug)
