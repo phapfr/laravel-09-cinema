@@ -71,4 +71,9 @@ class HomepageController extends Controller
         return view('client.phim' , compact('list_phim'));
     }
 
+    public function viewLienHe()
+    {
+        return view('client.lien_he');
+    }
+
 }

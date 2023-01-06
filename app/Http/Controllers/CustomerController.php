@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CapNhapMatKhauRequest;
+use App\Http\Requests\CapNhapThongTinRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterAccountRequest;
 use App\Http\Requests\ResetPasswordRequest;
@@ -79,8 +81,41 @@ class CustomerController extends Controller
     }
 
 
+    public function viewCapNhapThongTin()
+    {
+        $user = Auth::guard('customer')->user();
+        return view('client.profile' , compact('user'));
+    }
 
+    public function capNhapThongTin(CapNhapThongTinRequest $request)
+    {
+        $data = $request->all();
+        $id = Auth::guard('customer')->user()->id;
+        $user = Customer::find($id);
+        $user->update($data);
 
+        toastr()->success("Đã cập nhập thông tin thành công!!");
+
+        return redirect()->back();
+    }
+
+    public function viewCapNhapMatKhau()
+    {
+        return view('client.cap_nhap_mat_khau');
+    }
+
+    public function capNhapMatKhau(CapNhapMatKhauRequest $request)
+    {
+        $id = Auth::guard('customer')->user()->id;
+        $user = Customer::find($id);
+
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        toastr()->success("Đã cập nhập mật khẩu thành công!!");
+
+        return redirect()->back();
+    }
 
 
     public function actionUpdatePassword(UpdatePasswordRequest $request)

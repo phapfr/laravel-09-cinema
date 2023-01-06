@@ -14,15 +14,15 @@
                             <nav>
                                 <div class="navbar-wrap main-menu d-none d-lg-flex">
                                     <ul class="navigation">
-                                        <li class="active menu-item-has-children"><a href="/">Home</a>
+                                        <li class="active menu-item-has-children"><a href="/">Trang Chủ</a>
                                         </li>
                                         <li class="menu-item-has-children"><a href="/phim-dang-chieu">Phim Đang Chiếu</a>
                                         </li>
                                         <li class="menu-item-has-children"><a href="/phim-sap-chieu">Phim Sắp Chiếu</a>
                                         </li>
-                                        <li class="menu-item-has-children"><a href="/bai-viet">Blog</a>
+                                        <li class="menu-item-has-children"><a href="/bai-viet">Bài Viết</a>
                                         </li>
-                                        <li><a href="contact.html">contacts</a></li>
+                                        <li><a href="/lien-he">Liên Hệ</a></li>
                                     </ul>
                                 </div>
                             </nav>

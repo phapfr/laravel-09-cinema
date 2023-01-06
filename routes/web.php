@@ -51,6 +51,8 @@ Route::get('/phim-sap-chieu', [HomepageController::class, 'viewPhimSapChieu']);
 
 Route::post('/tim-kiem', [HomepageController::class, 'actionTimKiem']);
 //END Phim
+Route::get('/lien-he', [HomepageController::class, 'viewLienHe']);
+
 
 Route::get('/chi-tiet-phim/{slug}', [HomepageController::class, 'chiTietPhim']);
 Route::get('/bai-viet', [CustomerController::class, 'viewBaiViet']);
@@ -60,6 +62,12 @@ Route::get('/admin/login', [AdminController::class, 'viewLogin']);
 Route::post('/admin/login', [AdminController::class, 'actionLogin']);
 
 Route::group(['prefix' => '/client', 'middleware' => 'loginCustomer'],function() {
+    Route::get('/cap-nhap-thong-tin', [CustomerController::class, 'viewCapNhapThongTin']);
+    Route::post('/cap-nhap-thong-tin', [CustomerController::class, 'capNhapThongTin']);
+
+    Route::get('/cap-nhap-mat-khau', [CustomerController::class, 'viewCapNhapMatKhau']);
+    Route::post('/cap-nhap-mat-khau', [CustomerController::class, 'capNhapMatKhau']);
+
     Route::get('/dat-ve/{id_lich_chieu}', [LichChieuController::class, 'viewKhachHangDatVe']);
     Route::get('/hien-thi-ghe-ban/{id_lich_chieu}', [LichChieuController::class, 'showDataByIdLich']);
     Route::post('/dat-ve/giu-cho', [GheBanController::class, 'giuChoDatVe']);
