@@ -61,10 +61,10 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/admin/lien-he/index">
-                    <div class="parent-icon"><i class="bx bx-cookie"></i>
+                <a class="nav-link" href="/admin/khach-hang/thong-tin">
+                    <div class="parent-icon" style="width: 24px; height: 27px;"><i class="fa-regular fa-user"></i>
                     </div>
-                    <div class="menu-title">Quản Lý Liên Hệ</div>
+                    <div class="menu-title">Quản Lý Khách Hàng</div>
                 </a>
             </li>
         </ul>
