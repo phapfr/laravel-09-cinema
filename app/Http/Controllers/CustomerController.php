@@ -80,6 +80,18 @@ class CustomerController extends Controller
         $kickHoat->save();
     }
 
+    public function changePassword(Request $request)
+    {
+        $data = $request->all();
+        $khachHang = Customer::find($data['id']);
+        $khachHang->password = bcrypt($data['password']);
+        $khachHang->save();
+
+        return response()->json([
+            'status'    => true,
+        ]);
+    }
+
 
     public function viewCapNhapThongTin()
     {
