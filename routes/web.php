@@ -9,8 +9,11 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\LichChieuController;
 use App\Http\Controllers\PhimController;
 use App\Http\Controllers\PhongController;
+use App\Http\Controllers\QuanLyBaiVietController;
 use App\Http\Controllers\TestController;
 use App\Models\Phong;
+use App\Models\QuanLyBaiViet;
+use App\Models\QuanLyKhachHang;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/e48c2936-ec56-4452-8e01-9ce7f1b38952', [GheBanController::class, 'huyVeAuto']);
@@ -31,6 +34,8 @@ Route::get('/active/{hash}', [CustomerController::class, 'actionActive']);
 
 
 Route::get('/chi-tiet-phim/{slug}', [HomepageController::class, 'chiTietPhim']);
+Route::get('/bai-viet', [CustomerController::class, 'viewBaiViet']);
+Route::get('/bai-viet/detail/{id}', [CustomerController::class, 'viewBaiVietDetail']);
 
 Route::get('/admin/login', [AdminController::class, 'viewLogin']);
 Route::post('/admin/login', [AdminController::class, 'actionLogin']);
@@ -95,6 +100,15 @@ Route::group(['prefix' => '/admin', 'middleware' => 'loginAdmin'],function() {
         Route::get('/index', [AdminController::class, 'index']);
         Route::get('/index/data', [AdminController::class, 'getData']);
         Route::post('/create', [AdminController::class, 'store']);
+    });
+
+    Route::group(['prefix' => '/bai-viet'], function() {
+        Route::get('/index', [QuanLyBaiVietController::class, 'index']);
+        Route::post('/create', [QuanLyBaiVietController::class, 'createBaiViet']);
+        Route::post('/update', [QuanLyBaiVietController::class, 'updateBaiViet']);
+        Route::get('/data', [QuanLyBaiVietController::class, 'getData']);
+        Route::get('/status/{id}', [QuanLyBaiVietController::class, 'doiTrangThai']);
+        Route::post('/delete', [QuanLyBaiVietController::class, 'delete']);
     });
 });
 
