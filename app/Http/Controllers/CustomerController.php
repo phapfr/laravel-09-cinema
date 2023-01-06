@@ -141,7 +141,7 @@ class CustomerController extends Controller
     public function viewBaiVietDetail($id)
     {
         $baiVietDetail = QuanLyBaiViet::find($id);
-        // dd($baiVietDetail);
-        return view('client.bai_viet_detail', compact('baiVietDetail'));
+        $baiViet = QuanLyBaiViet::where('is_open', 1)->get();
+        return view('client.bai_viet_detail', compact('baiVietDetail','baiViet'));
     }
 }

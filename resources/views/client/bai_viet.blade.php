@@ -10,7 +10,7 @@
                     @endphp
                     <div class="blog-post-item">
                         <div class="blog-post-thumb">
-                            <a href="blog-details.html"><img src="{{$hinh_anh[0]}}" alt=""></a>
+                            <a href="/bai-viet/detail/{{$value->id}}"><img src="{{$hinh_anh[0]}}" alt=""></a>
                         </div>
                         <div class="blog-post-content">
                             <span class="date"><i class="far fa-clock"></i>{{$value->created_at}}</span>
@@ -23,7 +23,7 @@
                                     <li><i class="far fa-comments"></i><a href="#">12 Comments</a></li>
                                 </ul>
                                 <div class="read-more">
-                                    <a href="blog-details.html">Read More <i class="fas fa-angle-double-right"></i></a>
+                                    <a href="/bai-viet/detail/{{$value->id}}">Đọc thêm <i class="fas fa-angle-double-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -49,33 +49,20 @@
                         </div>
                         <div class="rc-post">
                             <ul>
-                                <li class="rc-post-item">
-                                    <div class="thumb">
-                                        <a href="blog-details.html"><img src="/assets_client/img/blog/rc_post_thumb01.jpg" alt=""></a>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="blog-details.html">Express Management Effective</a></h5>
-                                        <span class="date"><i class="far fa-clock"></i> 10 Mar 2021</span>
-                                    </div>
-                                </li>
-                                <li class="rc-post-item">
-                                    <div class="thumb">
-                                        <a href="blog-details.html"><img src="/assets_client/img/blog/rc_post_thumb02.jpg" alt=""></a>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="blog-details.html">Where watch English movies free?</a></h5>
-                                        <span class="date"><i class="far fa-clock"></i> 10 Mar 2021</span>
-                                    </div>
-                                </li>
-                                <li class="rc-post-item">
-                                    <div class="thumb">
-                                        <a href="blog-details.html"><img src="/assets_client/img/blog/rc_post_thumb03.jpg" alt=""></a>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="blog-details.html">House movie streaming website</a></h5>
-                                        <span class="date"><i class="far fa-clock"></i> 10 Mar 2021</span>
-                                    </div>
-                                </li>
+                                @foreach ($baiViet as $key => $value)
+                                    @php
+                                    $hinh_anh = explode(',', $value->hinh_anh)
+                                    @endphp
+                                    <li class="rc-post-item">
+                                        <div class="thumb">
+                                            <a href="/bai-viet/detail/{{$value->id}}"><img style="width: 100px; height: 80px;" src="{{$hinh_anh[0]}}" alt=""></a>
+                                        </div>
+                                        <div class="content">
+                                            <h5 class="title"><a href="/bai-viet/detail/{{$value->id}}">{{$value->tieu_de}}</a></h5>
+                                            <span class="date"><i class="far fa-clock"></i>{{$value->created_at}}</span>
+                                        </div>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
