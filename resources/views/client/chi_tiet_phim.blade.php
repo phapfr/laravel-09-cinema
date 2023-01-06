@@ -25,7 +25,7 @@
                                 <a href="#">Đạo Diễn : {{ isset($phim) ? $phim->dao_dien : '' }}</a>
                             </li>
                             <li class="release-time">
-                                <span><i class="far fa-calendar-alt"></i> {{ isset($phim) ? $phim->ngay_khoi_chieu : '' }},</span>
+                                <span><i class="far fa-calendar-alt"></i> {{ isset($phim) ? Carbon\Carbon::parse($phim->ngay_khoi_chieu)->format('d/m/Y') : '' }},</span>
                                 <span><i class="far fa-clock"></i> {{ isset($phim) ? $phim->thoi_luong : '' }} min</span>
                             </li>
                         </ul>

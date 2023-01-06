@@ -20,10 +20,10 @@
                             <div class="col-md-12">
                                 <input name="re_password" type="text" placeholder="Nhập lại mật khẩu">
                             </div>
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 {!! NoCaptcha::renderJs() !!}
                                 {!! NoCaptcha::display() !!}
-                            </div>
+                            </div> --}}
                             <div class="col-md-12 text-right">
                                 <button type="submit" class="btn">Đổi Mật Khẩu</button>
                             </div>

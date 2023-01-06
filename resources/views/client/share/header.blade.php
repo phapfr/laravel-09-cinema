@@ -1,18 +1,25 @@
 <!-- header-area -->
 <header class="header-style-two">
+    @php
+        $check = Auth::guard('customer')->check();
+        $user  = Auth::guard('customer')->user();
+    @endphp
     <div class="header-top-wrap">
         <div class="container custom-container">
             <div class="row align-items-center">
                 <div class="col-md-6 d-none d-md-block">
                     <div class="header-top-subs">
-                        <p>Movflx One Month Free <span>Subscription !</span></p>
+                        <p>Công Ty Cổ Phần <span>DZFullStack</span></p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="header-top-link">
                         <ul class="quick-link">
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">FAQS</a></li>
+                            @if ($check)
+                                <li><a href="#">Chào Bạn, {{ $user->ho_va_ten }}</a></li>
+                            @else
+                                <li><a href="#">About Us</a></li>
+                            @endif
                         </ul>
                         <ul class="header-social">
                             <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
@@ -33,86 +40,50 @@
                     <div class="menu-wrap">
                         <nav class="menu-nav show">
                             <div class="logo">
-                                <a href="/assets_client/index.html">
+                                <a href="/">
                                     <img src="/assets_client/img/logo/logo.png" alt="Logo">
                                 </a>
                             </div>
                             <div class="navbar-wrap main-menu d-none d-lg-flex">
-                                <ul class="navigation">
-                                    <li class="active menu-item-has-children"><a href="/">Home</a>
-                                    </li>
-                                    <li class="menu-item-has-children"><a href="#">Phim Đang Chiếu</a>
-                                    </li>
-                                    <li class="menu-item-has-children"><a href="#">Phim Sắp Chiếu</a>
-                                    </li>
-                                    <li class="menu-item-has-children"><a href="#">Bài Viết</a>
-                                    </li>
-                                     <li class="menu-item-has-children"><a href="#">Liên Hệ</a>
-                                    </li>
-                                </ul>
+                                <div class="navbar-wrap main-menu d-none d-lg-flex">
+                                    <ul class="navigation">
+                                        <li class="menu-item-has-children"><a href="/">Home</a>
+                                        </li>
+                                        <li class="menu-item-has-children"><a href="/phim-dang-chieu">Phim Đang Chiếu</a>
+                                        </li>
+                                        <li class="menu-item-has-children"><a href="/phim-sap-chieu">Phim Sắp Chiếu</a>
+                                        </li>
+                                        <li class="menu-item-has-children"><a href="/bai-viet">Blog</a>
+                                        </li>
+                                        <li><a href="contact.html">contacts</a></li>
+                                    </ul>
+                                </div>
                             </div>
                             <div class="header-action d-none d-md-block">
                                 <ul>
                                     <li class="d-none d-xl-block">
                                         <div class="footer-search">
-                                            <form action="#">
-                                                <input type="text" placeholder="Find Favorite Movie">
-                                                <button><i class="fas fa-search"></i></button>
+                                            <form action="/tim-kiem" method="POST">
+                                                @csrf
+                                                <input type="text" name="search" placeholder="Nhập Tên Phim">
+                                                <button type="submit"><i class="fas fa-search"></i></button>
                                             </form>
                                         </div>
                                     </li>
-                                    <li class="header-lang">
-                                        <form action="#">
-                                            <div class="/assets_client/icon"><i class="flaticon-globe"></i></div>
-                                            <select id="lang-dropdown">
-                                                <option value="">En</option>
-                                                <option value="">Au</option>
-                                                <option value="">AR</option>
-                                                <option value="">TU</option>
-                                            </select>
-                                        </form>
-                                    </li>
-                                    <li class="header-btn"><a href="/login" class="btn" >Sign In</a></li>
-                                    {{-- <li class="header-btn"><a href="#" class="btn"  data-toggle="modal" data-target="#dangNhapModal">Đăng Nhập</a></li> --}}
-                                    {{-- Đăng Kí --}}
-                                    {{-- <div class="modal fade" id="dangKiModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                          <div class="modal-content">
-                                            <div class="modal-header">
-                                              <h5 class="modal-title">Đăng Kí</h5>
-                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form id="dangKi">
-                                                    <div class="form-group">
-                                                        <label >Email</label>
-                                                        <input type="email" class="form-control" placeholder="Nhập Email">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label >Họ Và Tên</label>
-                                                        <input type="text" class="form-control" placeholder="Nhập Họ và tên">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label >Số Điện Thoại</label>
-                                                        <input type="tel" class="form-control" placeholder="Nhập số diện thoại">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label >Mật Khâur</label>
-                                                        <input type="password" class="form-control" placeholder="Nhập Mật khẩu">
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                              <button type="button" class="btn " data-dismiss="modal">Close</button>
-                                              <button type="button" class="btn">Đăng Ký</button>
-                                            </div>
-                                          </div>
+                                    @if ($check)
+                                        <div class="navbar-wrap main-menu d-none d-lg-flex">
+                                            <ul class="navigation">
+                                                <li class="active menu-item-has-children ml-4"><a href="#"><i class="fa-solid fa-user fa-2x"></i></a>
+                                                    <ul class="submenu">
+                                                        <li><a href="index.html">Trang Cá Nhân</a></li>
+                                                        <li><a href="/logout">Đăng Xuất</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
                                         </div>
-                                    </div> --}}
+                                    @else
+                                        <li class="header-btn"><a href="/register" class="btn">Sign In</a></li>
+                                    @endif
                                 </ul>
                             </div>
                         </nav>

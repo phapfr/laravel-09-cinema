@@ -22,19 +22,26 @@
 
     <!-- header-area -->
     <header class="header-style-two">
+        @php
+            $check = Auth::guard('customer')->check();
+            $user  = Auth::guard('customer')->user();
+        @endphp
         <div class="header-top-wrap">
             <div class="container custom-container">
                 <div class="row align-items-center">
                     <div class="col-md-6 d-none d-md-block">
                         <div class="header-top-subs">
-                            <p>Movflx One Month Free <span>Subscription !</span></p>
+                            <p>Công Ty Cổ Phần <span>DZFullStack</span></p>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="header-top-link">
                             <ul class="quick-link">
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">FAQS</a></li>
+                                @if ($check)
+                                    <li><a href="#">Chào Bạn, {{ $user->ho_va_ten }}</a></li>
+                                @else
+                                    <li><a href="#">About Us</a></li>
+                                @endif
                             </ul>
                             <ul class="header-social">
                                 <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
@@ -55,7 +62,7 @@
                         <div class="menu-wrap">
                             <nav class="menu-nav show">
                                 <div class="logo">
-                                    <a href="/assets_client/index.html">
+                                    <a href="/">
                                         <img src="/assets_client/img/logo/logo.png" alt="Logo">
                                     </a>
                                 </div>
@@ -71,6 +78,34 @@
                                         <li class="menu-item-has-children"><a href="/bai-viet">Blog</a>
                                         </li>
                                         <li><a href="contact.html">contacts</a></li>
+                                    </ul>
+                                </div>
+                                <div class="header-action d-none d-md-block">
+                                    <ul>
+                                        <li class="d-none d-xl-block">
+                                            <div class="footer-search">
+                                                <form action="/tim-kiem" method="POST">
+                                                    @csrf
+                                                    <input type="text" name="search" placeholder="Nhập Tên Phim">
+                                                    <button type="submit"><i class="fas fa-search"></i></button>
+                                                </form>
+                                            </div>
+                                        </li>
+
+                                        @if ($check)
+                                            <div class="navbar-wrap main-menu d-none d-lg-flex">
+                                                <ul class="navigation">
+                                                    <li class="active menu-item-has-children ml-4"><a href="#"><i class="fa-solid fa-user fa-2x"></i></a>
+                                                        <ul class="submenu">
+                                                            <li><a href="index.html">Trang Cá Nhân</a></li>
+                                                            <li><a href="/logout">Đăng Xuất</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        @else
+                                            <li class="header-btn"><a href="/register" class="btn">Sign In</a></li>
+                                        @endif
                                     </ul>
                                 </div>
                             </nav>
@@ -234,557 +269,109 @@
         </section>
         <!-- slider-area-end -->
 
-        <!-- up-coming-movie-area -->
+        <!-- Phim Nổi bật -->
         <section class="ucm-area ucm-bg2" data-background="/assets_client/img/bg/ucm_bg02.jpg">
             <div class="container">
                 <div class="row align-items-end mb-55">
                     <div class="col-lg-6">
                         <div class="section-title title-style-three text-center text-lg-left">
-                            <span class="sub-title">ONLINE STREAMING</span>
-                            <h2 class="title">New Release Movies</h2>
+                            <span class="sub-title">DZFullStack</span>
+                            <h2 class="title">Phim Nổi Bật</h2>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="ucm-nav-wrap">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" id="tvShow-tab" data-toggle="tab" href="#tvShow"
-                                        role="tab" aria-controls="tvShow" aria-selected="true">TV Shows</a>
+                                    <a class="nav-link active" id="dangChieu-tab" data-toggle="tab" href="#dangChieu"
+                                        role="tab" aria-controls="tvShow" aria-selected="true">Phim Đang Chiếu</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="movies-tab" data-toggle="tab" href="#movies"
-                                        role="tab" aria-controls="movies" aria-selected="false">Movies</a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="anime-tab" data-toggle="tab" href="#anime"
-                                        role="tab" aria-controls="anime" aria-selected="false">Anime</a>
+                                    <a class="nav-link" id="sapChieu-tab" data-toggle="tab" href="#sapChieu"
+                                        role="tab" aria-controls="movies" aria-selected="false">Phim Sắp Chiếu</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="tvShow" role="tabpanel"
-                        aria-labelledby="tvShow-tab">
+                    <div class="tab-pane fade show active" id="dangChieu" role="tabpanel"
+                        aria-labelledby="dangChieu-tab">
                         <div class="ucm-active-two owl-carousel">
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster01.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
+                            @foreach ($list_phim as $key => $value )
+                                @if ($value->tinh_trang == 1)
+                                <div class="movie-item movie-item-two mb-30">
+                                    <div class="movie-poster">
+                                        <a href="/chi-tiet-phim/{{$value->slug_ten_phim}}-{{$value->id}}"><img src="{{ $value->avatar }}"
+                                                alt=""></a>
                                     </div>
-                                    <h5 class="title"><a href="movie-details.html">Message in a Bottle</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster02.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h5 class="title"><a href="movie-details.html">The Parkar Legend</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
+                                    <div class="movie-content">
+                                        <div class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <h5 class="title"><a href="/chi-tiet-phim/{{$value->slug_ten_phim}}-{{$value->id}}">{{ $value->ten_phim }}</a></h5>
+                                        <span class="rel">{{ $value->dao_dien }}</span>
+                                        <div class="movie-content-bottom">
+                                            <ul>
+                                                <li class="tag">
+                                                    <a href="#">HD</a>
+                                                    <span class="like mt-1">{{ $value->thoi_luong }} min</span>
+                                                </li>
+                                                <li>
+                                                    <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster03.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h5 class="title"><a href="movie-details.html">The Tonoy 88 Bottle</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster04.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h5 class="title"><a href="movie-details.html">The Ackle Bottle</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster05.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h5 class="title"><a href="movie-details.html">Message in a Bottle</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster06.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h5 class="title"><a href="movie-details.html">The Dog Woof</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="movies" role="tabpanel" aria-labelledby="movies-tab">
+                    <div class="tab-pane fade" id="sapChieu" role="tabpanel" aria-labelledby="sapChieu-tab">
                         <div class="ucm-active-two owl-carousel">
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster06.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
+                            @foreach ($list_phim as $key => $value )
+                                @if ($value->tinh_trang == 2)
+                                <div class="movie-item movie-item-two mb-30">
+                                    <div class="movie-poster">
+                                        <a href="/chi-tiet-phim/{{$value->slug_ten_phim}}-{{$value->id}}"><img src="{{ $value->avatar }}"
+                                                alt=""></a>
                                     </div>
-                                    <h5 class="title"><a href="movie-details.html">Message in a Bottle</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster07.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h5 class="title"><a href="movie-details.html">The Parkar Legend</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
+                                    <div class="movie-content" >
+                                        <div class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <h5 class="title"><a href="/chi-tiet-phim/{{$value->slug_ten_phim}}-{{$value->id}}">{{ $value->ten_phim }}</a></h5>
+                                        <span class="rel">{{ $value->dao_dien }}</span>
+                                        <div class="movie-content-bottom">
+                                            <ul>
+                                                <li class="tag">
+                                                    <a href="#">HD</a>
+                                                    <span class="like">{{ $value->thoi_luong }} min</span>
+                                                </li>
+                                                <li>
+                                                    <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster08.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h5 class="title"><a href="movie-details.html">The Tonoy 88 Bottle</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster09.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h5 class="title"><a href="movie-details.html">The Ackle Bottle</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster02.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h5 class="title"><a href="movie-details.html">Message in a Bottle</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster01.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h5 class="title"><a href="movie-details.html">The Dog Woof</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="anime" role="tabpanel" aria-labelledby="anime-tab">
-                        <div class="ucm-active-two owl-carousel">
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster01.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h5 class="title"><a href="movie-details.html">Message in a Bottle</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster02.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h5 class="title"><a href="movie-details.html">The Parkar Legend</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster03.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h5 class="title"><a href="movie-details.html">The Tonoy 88 Bottle</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster04.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h5 class="title"><a href="movie-details.html">The Ackle Bottle</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster05.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h5 class="title"><a href="movie-details.html">Message in a Bottle</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item movie-item-two mb-30">
-                                <div class="movie-poster">
-                                    <a href="movie-details.html"><img src="/assets_client/img/poster/s_ucm_poster06.jpg"
-                                            alt=""></a>
-                                </div>
-                                <div class="movie-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h5 class="title"><a href="movie-details.html">The Dog Woof</a></h5>
-                                    <span class="rel">Adventure</span>
-                                    <div class="movie-content-bottom">
-                                        <ul>
-                                            <li class="tag">
-                                                <a href="#">HD</a>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li>
-                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- up-coming-movie-area-end -->
+        <!-- Phim Nổi bật-end -->
 
         <!-- gallery-area -->
         <div class="gallery-area position-relative">
@@ -806,427 +393,67 @@
                             <img src="/assets_client/img/images/gallery_03.jpg" alt="">
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="gallery-item">
-                            <img src="/assets_client/img/images/gallery_04.jpg" alt="">
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="slider-nav"></div>
         </div>
         <!-- gallery-area-end -->
 
-        <!-- services-area -->
-        <section class="services-area services-bg-two" data-background="/assets_client/img/bg/services_bg02.jpg">
-            <div class="container">
-                <div class="row justify-content-between align-items-center">
-                    <div class="col-lg-6 order-0 order-lg-2">
-                        <div class="services-img-wrap">
-                            <img src="/assets_client/img/images/services_img02.jpg" alt="">
-                            <a href="/assets_client/img/images/services_img02.jpg" class="download-btn" download>Download <img
-                                    src="/assets_client/fonts/download.svg" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="col-xl-5 col-lg-6">
-                        <div class="services-content-wrap">
-                            <div class="section-title mb-40">
-                                <span class="sub-title">ONLINE STREAMING</span>
-                                <h2 class="title">Download Your Shows Watch Offline.</h2>
-                            </div>
-                            <div class="services-list">
-                                <ul>
-                                    <li>
-                                        <div class="/assets_client/icon">
-                                            <i class="flaticon-television"></i>
-                                        </div>
-                                        <div class="content">
-                                            <h5>Enjoy on Your TV.</h5>
-                                            <p>Lorem ipsum dolor sit amet, consecetur adipiscing elit, sed do eiusmod
-                                                tempor.</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="/assets_client/icon">
-                                            <i class="flaticon-video-camera"></i>
-                                        </div>
-                                        <div class="content">
-                                            <h5>Watch Everywhere.</h5>
-                                            <p>Lorem ipsum dolor sit amet, consecetur adipiscing elit, sed do eiusmod
-                                                tempor.</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- services-area-end -->
-
         <!-- top-rated-movie -->
-        <section class="top-rated-movie tr-movie-bg2" data-background="/assets_client/img/bg/tr_movies_bg.jpg">
+        <section class="top-rated-movie tr-movie-bg2 mt-5" data-background="/assets_client/img/bg/tr_movies_bg.jpg">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <div class="section-title title-style-three text-center mb-70">
-                            <span class="sub-title">top rated movies</span>
-                            <h2 class="title">Top Online Shows Watch</h2>
+                            <span class="sub-title">DZFullStack</span>
+                            <h2 class="title">Các Phim Gần Đây</h2>
                         </div>
                     </div>
                 </div>
                 <div class="row movie-item-row">
-                    <div class="custom-col-">
-                        <div class="movie-item movie-item-two">
-                            <div class="movie-poster">
-                                <img src="/assets_client/img/poster/s_ucm_poster01.jpg" alt="">
-                                <ul class="overlay-btn">
-                                    <li><a href="https://www.youtube.com/watch?v=R2gbPxeNk2E"
-                                            class="popup-video btn">Watch Now</a></li>
-                                    <li><a href="movie-details.html" class="btn">Details</a></li>
-                                </ul>
-                            </div>
-                            <div class="movie-content">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h5 class="title"><a href="movie-details.html">Message in a Bottle</a></h5>
-                                <span class="rel">Adventure</span>
-                                <div class="movie-content-bottom">
-                                    <ul>
-                                        <li class="tag">
-                                            <a href="#">HD</a>
-                                            <a href="#">English</a>
-                                        </li>
-                                        <li>
-                                            <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                        </li>
+                    @foreach ($list_phim as $key => $value)
+                        @if ($value->tinh_trang != 2)
+                        <div class="custom-col-">
+                            <div class="movie-item movie-item-two">
+                                <div class="movie-poster">
+                                    <img src="{{ $value->avatar }}" alt="">
+                                    <ul class="overlay-btn">
+                                        <li><a href="/chi-tiet-phim/{{$value->slug_ten_phim}}-{{$value->id}}" class="btn">Xem Chi Tiết</a></li>
                                     </ul>
+                                </div>
+                                <div class="movie-content">
+                                    <div class="rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <h5 class="title"><a href="/chi-tiet-phim/{{$value->slug_ten_phim}}-{{$value->id}}">{{ $value->ten_phim }}</a></h5>
+                                    <span class="rel">Adventure</span>
+                                    <div class="movie-content-bottom">
+                                        <ul>
+                                            <li class="tag">
+                                                <a href="#">HD</a>
+                                                <span class="like mt-1">{{ $value->thoi_luong }} min</span>
+                                            </li>
+                                            <li>
+                                                <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="custom-col-">
-                        <div class="movie-item movie-item-two">
-                            <div class="movie-poster">
-                                <img src="/assets_client/img/poster/s_ucm_poster02.jpg" alt="">
-                                <ul class="overlay-btn">
-                                    <li><a href="https://www.youtube.com/watch?v=R2gbPxeNk2E"
-                                            class="popup-video btn">Watch Now</a></li>
-                                    <li><a href="movie-details.html" class="btn">Details</a></li>
-                                </ul>
-                            </div>
-                            <div class="movie-content">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h5 class="title"><a href="movie-details.html">The Parkar Legend</a></h5>
-                                <span class="rel">Adventure</span>
-                                <div class="movie-content-bottom">
-                                    <ul>
-                                        <li class="tag">
-                                            <a href="#">HD</a>
-                                            <a href="#">English</a>
-                                        </li>
-                                        <li>
-                                            <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="custom-col-">
-                        <div class="movie-item movie-item-two">
-                            <div class="movie-poster">
-                                <img src="/assets_client/img/poster/s_ucm_poster03.jpg" alt="">
-                                <ul class="overlay-btn">
-                                    <li><a href="https://www.youtube.com/watch?v=R2gbPxeNk2E"
-                                            class="popup-video btn">Watch Now</a></li>
-                                    <li><a href="movie-details.html" class="btn">Details</a></li>
-                                </ul>
-                            </div>
-                            <div class="movie-content">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h5 class="title"><a href="movie-details.html">The Ackle Bottle</a></h5>
-                                <span class="rel">Adventure</span>
-                                <div class="movie-content-bottom">
-                                    <ul>
-                                        <li class="tag">
-                                            <a href="#">HD</a>
-                                            <a href="#">English</a>
-                                        </li>
-                                        <li>
-                                            <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="custom-col-">
-                        <div class="movie-item movie-item-two">
-                            <div class="movie-poster">
-                                <img src="/assets_client/img/poster/s_ucm_poster04.jpg" alt="">
-                                <ul class="overlay-btn">
-                                    <li><a href="https://www.youtube.com/watch?v=R2gbPxeNk2E"
-                                            class="popup-video btn">Watch Now</a></li>
-                                    <li><a href="movie-details.html" class="btn">Details</a></li>
-                                </ul>
-                            </div>
-                            <div class="movie-content">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h5 class="title"><a href="movie-details.html">The Speed 2</a></h5>
-                                <span class="rel">Adventure</span>
-                                <div class="movie-content-bottom">
-                                    <ul>
-                                        <li class="tag">
-                                            <a href="#">HD</a>
-                                            <a href="#">English</a>
-                                        </li>
-                                        <li>
-                                            <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="custom-col-">
-                        <div class="movie-item movie-item-two">
-                            <div class="movie-poster">
-                                <img src="/assets_client/img/poster/s_ucm_poster05.jpg" alt="">
-                                <ul class="overlay-btn">
-                                    <li><a href="https://www.youtube.com/watch?v=R2gbPxeNk2E"
-                                            class="popup-video btn">Watch Now</a></li>
-                                    <li><a href="movie-details.html" class="btn">Details</a></li>
-                                </ul>
-                            </div>
-                            <div class="movie-content">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h5 class="title"><a href="movie-details.html">The Legend Emo</a></h5>
-                                <span class="rel">Adventure</span>
-                                <div class="movie-content-bottom">
-                                    <ul>
-                                        <li class="tag">
-                                            <a href="#">HD</a>
-                                            <a href="#">English</a>
-                                        </li>
-                                        <li>
-                                            <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="custom-col-">
-                        <div class="movie-item movie-item-two">
-                            <div class="movie-poster">
-                                <img src="/assets_client/img/poster/s_ucm_poster06.jpg" alt="">
-                                <ul class="overlay-btn">
-                                    <li><a href="https://www.youtube.com/watch?v=R2gbPxeNk2E"
-                                            class="popup-video btn">Watch Now</a></li>
-                                    <li><a href="movie-details.html" class="btn">Details</a></li>
-                                </ul>
-                            </div>
-                            <div class="movie-content">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h5 class="title"><a href="movie-details.html">Envato Bottle 88</a></h5>
-                                <span class="rel">Adventure</span>
-                                <div class="movie-content-bottom">
-                                    <ul>
-                                        <li class="tag">
-                                            <a href="#">HD</a>
-                                            <a href="#">English</a>
-                                        </li>
-                                        <li>
-                                            <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="custom-col-">
-                        <div class="movie-item movie-item-two">
-                            <div class="movie-poster">
-                                <img src="/assets_client/img/poster/s_ucm_poster07.jpg" alt="">
-                                <ul class="overlay-btn">
-                                    <li><a href="https://www.youtube.com/watch?v=R2gbPxeNk2E"
-                                            class="popup-video btn">Watch Now</a></li>
-                                    <li><a href="movie-details.html" class="btn">Details</a></li>
-                                </ul>
-                            </div>
-                            <div class="movie-content">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h5 class="title"><a href="movie-details.html">Message Bottle II</a></h5>
-                                <span class="rel">Adventure</span>
-                                <div class="movie-content-bottom">
-                                    <ul>
-                                        <li class="tag">
-                                            <a href="#">HD</a>
-                                            <a href="#">English</a>
-                                        </li>
-                                        <li>
-                                            <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="custom-col-">
-                        <div class="movie-item movie-item-two">
-                            <div class="movie-poster">
-                                <img src="/assets_client/img/poster/s_ucm_poster08.jpg" alt="">
-                                <ul class="overlay-btn">
-                                    <li><a href="https://www.youtube.com/watch?v=R2gbPxeNk2E"
-                                            class="popup-video btn">Watch Now</a></li>
-                                    <li><a href="movie-details.html" class="btn">Details</a></li>
-                                </ul>
-                            </div>
-                            <div class="movie-content">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h5 class="title"><a href="movie-details.html">The Message B.</a></h5>
-                                <span class="rel">Adventure</span>
-                                <div class="movie-content-bottom">
-                                    <ul>
-                                        <li class="tag">
-                                            <a href="#">HD</a>
-                                            <a href="#">English</a>
-                                        </li>
-                                        <li>
-                                            <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="custom-col-">
-                        <div class="movie-item movie-item-two">
-                            <div class="movie-poster">
-                                <img src="/assets_client/img/poster/s_ucm_poster09.jpg" alt="">
-                                <ul class="overlay-btn">
-                                    <li><a href="https://www.youtube.com/watch?v=R2gbPxeNk2E"
-                                            class="popup-video btn">Watch Now</a></li>
-                                    <li><a href="movie-details.html" class="btn">Details</a></li>
-                                </ul>
-                            </div>
-                            <div class="movie-content">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h5 class="title"><a href="movie-details.html">Tiger World Q.</a></h5>
-                                <span class="rel">Adventure</span>
-                                <div class="movie-content-bottom">
-                                    <ul>
-                                        <li class="tag">
-                                            <a href="#">HD</a>
-                                            <a href="#">Bluray</a>
-                                        </li>
-                                        <li>
-                                            <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="custom-col-">
-                        <div class="movie-item movie-item-two">
-                            <div class="movie-poster">
-                                <img src="/assets_client/img/poster/s_ucm_poster10.jpg" alt="">
-                                <ul class="overlay-btn">
-                                    <li><a href="https://www.youtube.com/watch?v=R2gbPxeNk2E"
-                                            class="popup-video btn">Watch Now</a></li>
-                                    <li><a href="movie-details.html" class="btn">Details</a></li>
-                                </ul>
-                            </div>
-                            <div class="movie-content">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h5 class="title"><a href="movie-details.html">Avenger World IV</a></h5>
-                                <span class="rel">Adventure</span>
-                                <div class="movie-content-bottom">
-                                    <ul>
-                                        <li class="tag">
-                                            <a href="#">HD</a>
-                                            <a href="#">English</a>
-                                        </li>
-                                        <li>
-                                            <span class="like"><i class="fas fa-thumbs-up"></i> 3.5</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tr-movie-btn text-center mt-25">
-                    <a href="#" class="btn">BROWSE ALL MOVIES</a>
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </section>
         <!-- top-rated-movie-end -->
 
         <!-- pricing-area -->
-        <section class="pricing-area pricing-bg" data-background="/assets_client/img/bg/pricing_bg.jpg">
+        {{-- <section class="pricing-area pricing-bg" data-background="/assets_client/img/bg/pricing_bg.jpg">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
@@ -1310,7 +537,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- pricing-area-end -->
 
     </main>
@@ -1323,24 +550,24 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3">
                             <div class="footer-logo">
-                                <a href="/assets_client/index.html"><img src="/assets_client/img/logo/logo.png" alt=""></a>
+                                <a href="/"><img src="/assets_client/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
                         <div class="col-lg-9">
                             <div class="footer-menu">
                                 <nav>
-                                    <ul class="navigation">
-                                        <li><a href="/assets_client/index.html">Home</a></li>
-                                        <li><a href="/assets_client/index.html">Movie</a></li>
-                                        <li><a href="/assets_client/index.html">tv show</a></li>
-                                        <li><a href="/assets_client/index.html">pages</a></li>
-                                        <li><a href="pricing.html">Pricing</a></li>
-                                    </ul>
-                                    <div class="footer-search">
-                                        <form action="#">
-                                            <input type="text" placeholder="Find Favorite Movie">
-                                            <button><i class="fas fa-search"></i></button>
-                                        </form>
+                                    <div class="navbar-wrap main-menu d-none d-lg-flex">
+                                        <ul class="navigation">
+                                            <li class="active menu-item-has-children"><a href="/">Home</a>
+                                            </li>
+                                            <li class="menu-item-has-children"><a href="/phim-dang-chieu">Phim Đang Chiếu</a>
+                                            </li>
+                                            <li class="menu-item-has-children"><a href="/phim-sap-chieu">Phim Sắp Chiếu</a>
+                                            </li>
+                                            <li class="menu-item-has-children"><a href="/bai-viet">Blog</a>
+                                            </li>
+                                            <li><a href="contact.html">contacts</a></li>
+                                        </ul>
                                     </div>
                                 </nav>
                             </div>
@@ -1378,7 +605,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="copyright-text">
-                            <p>Copyright Alo &copy; 2021. All Rights Reserved By <a href="/assets_client/index.html">Movflx</a></p>
+                            <p>Copyright &copy;  @php echo date('Y') @endphp . All Rights Reserved By <a href="/assets_client/index.html">DZFullStack</a></p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">

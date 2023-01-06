@@ -151,7 +151,7 @@ class CustomerController extends Controller
         // End Phân JOB
 
         toastr()->success('Đã tạo tài khoản thành công!');
-        return redirect()->back();
+        return redirect('/login');
     }
 
     public function viewLogin()
@@ -179,7 +179,7 @@ class CustomerController extends Controller
             toastr()->error("Tài khoản hoặc mật khẩu không đúng!");
         }
 
-        return redirect()->back();
+        return redirect('/');
     }
 
     public function actionActive($hash)

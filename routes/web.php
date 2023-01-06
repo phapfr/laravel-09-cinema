@@ -26,10 +26,15 @@ Route::post('/update-password', [CustomerController::class, 'actionUpdatePasswor
 
 Route::get('/reset-password', [CustomerController::class, 'viewResetPassword']);
 Route::post('/reset-password', [CustomerController::class, 'actionResetPassword']);
+
 Route::get('/login', [CustomerController::class, 'viewLogin']);
 Route::post('/login', [CustomerController::class, 'actionLogin']);
+
 Route::get('/register', [CustomerController::class, 'viewRegister']);
 Route::post('/register', [CustomerController::class, 'actionRegister']);
+
+Route::get('/logout', [CustomerController::class, 'actionLogout']);
+
 Route::get('/active/{hash}', [CustomerController::class, 'actionActive']);
 Route::get('/thong-tin', [CustomerController::class, 'viewThongTin']);
 Route::get('/data', [CustomerController::class, 'getData']);
@@ -40,6 +45,12 @@ Route::get('/kich-hoat/{id}', [CustomerController::class, 'kichHoat']);
 
 
 
+//BEGIN Phim
+Route::get('/phim-dang-chieu', [HomepageController::class, 'viewPhimDangChieu']);
+Route::get('/phim-sap-chieu', [HomepageController::class, 'viewPhimSapChieu']);
+
+Route::post('/tim-kiem', [HomepageController::class, 'actionTimKiem']);
+//END Phim
 
 Route::get('/chi-tiet-phim/{slug}', [HomepageController::class, 'chiTietPhim']);
 Route::get('/bai-viet', [CustomerController::class, 'viewBaiViet']);
@@ -56,7 +67,9 @@ Route::group(['prefix' => '/client', 'middleware' => 'loginCustomer'],function()
     Route::get('/thanh-toan', [GheBanController::class, 'thanhToan']);
 });
 
-Route::group(['prefix' => '/admin' , 'middleware' => 'loginAdmin'],function() {
+Route::group(['prefix' => '/admin', 'middleware' => 'loginAdmin'],function() {
+    Route::get('/', [AdminController::class, 'viewHome']);
+
     Route::group(['prefix' => '/cau-hinh'], function() {
         Route::get('/index', [ConfigController::class, 'index']);
         Route::post('/index', [ConfigController::class, 'store']);
