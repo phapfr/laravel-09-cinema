@@ -209,4 +209,11 @@ class CustomerController extends Controller
         $baiViet = QuanLyBaiViet::where('is_open', 1)->get();
         return view('client.bai_viet_detail', compact('baiVietDetail','baiViet'));
     }
+
+    public function actionLogout()
+    {
+        Auth::guard('customer')->logout();
+
+        return redirect('/login');
+    }
 }
