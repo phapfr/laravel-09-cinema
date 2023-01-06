@@ -62,12 +62,17 @@
                                     <option value="0">Giới Tính Nữ</option>
                                 </select>
                             </div>
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 {!! NoCaptcha::renderJs() !!}
                                 {!! NoCaptcha::display() !!}
-                            </div>
-                            <div class="col-md-12 text-right">
-                                <button type="submit" class="btn">Đăng Ký</button>
+                            </div> --}}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="/login" class="btn">Đăng Nhập</a>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button type="submit" class="btn">Đăng Ký</button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -78,20 +83,20 @@
                     <h5 class="title">Thông Tin Về Chúng Tôi</h5>
                 </div>
                 <div class="contact-info-wrap">
-                    <p><span>Find solutions :</span> to common problems, or get help from a support agent industry's standard .</p>
+                    <p><span>DZFullStack Cinema :</span> Tận hưởng từng khoảnh khắc của bạn</p>
                     <div class="contact-info-list">
                         <ul>
                             <li>
                                 <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
-                                <p><span>Address :</span> W38 Park Road New York</p>
+                                <p><span>Address :</span> 32 Xuân Diệu, Thuận Phước, Hải Châu, Đà Nẵng</p>
                             </li>
                             <li>
                                 <div class="icon"><i class="fas fa-phone-alt"></i></div>
-                                <p><span>Phone :</span> (09) 123 854 365</p>
+                                <p><span>Phone :</span> 0905523543</p>
                             </li>
                             <li>
                                 <div class="icon"><i class="fas fa-envelope"></i></div>
-                                <p><span>Email :</span> support@movflx.com</p>
+                                <p><span>Email :</span> dzfullstack@gmail.com</p>
                             </li>
                         </ul>
                     </div>

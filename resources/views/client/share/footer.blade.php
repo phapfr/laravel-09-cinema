@@ -12,18 +12,18 @@
                     <div class="col-lg-9">
                         <div class="footer-menu">
                             <nav>
-                                <ul class="navigation">
-                                    <li><a href="/assets_client/index.html">Home</a></li>
-                                    <li><a href="/assets_client/index.html">Movie</a></li>
-                                    <li><a href="/assets_client/index.html">tv show</a></li>
-                                    <li><a href="/assets_client/index.html">pages</a></li>
-                                    <li><a href="pricing.html">Pricing</a></li>
-                                </ul>
-                                <div class="footer-search">
-                                    <form action="#">
-                                        <input type="text" placeholder="Find Favorite Movie">
-                                        <button><i class="fas fa-search"></i></button>
-                                    </form>
+                                <div class="navbar-wrap main-menu d-none d-lg-flex">
+                                    <ul class="navigation">
+                                        <li class="active menu-item-has-children"><a href="/">Home</a>
+                                        </li>
+                                        <li class="menu-item-has-children"><a href="/phim-dang-chieu">Phim Đang Chiếu</a>
+                                        </li>
+                                        <li class="menu-item-has-children"><a href="/phim-sap-chieu">Phim Sắp Chiếu</a>
+                                        </li>
+                                        <li class="menu-item-has-children"><a href="/bai-viet">Blog</a>
+                                        </li>
+                                        <li><a href="contact.html">contacts</a></li>
+                                    </ul>
                                 </div>
                             </nav>
                         </div>
@@ -61,7 +61,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6">
                     <div class="copyright-text">
-                        <p>Copyright &copy; 2021. All Rights Reserved By <a href="/assets_client/index.html">Movflx</a></p>
+                        <p>Copyright &copy;  @php echo date('Y') @endphp. All Rights Reserved By <a href="/assets_client/index.html">DZFullStack</a></p>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
