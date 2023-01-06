@@ -40,6 +40,7 @@
                         <button v-on:click="kichHoat(value.id)" class="btn btn-info" v-else >Kích Hoạt</button>
                     </td>
                     <td class="text-nowrap text-center align-middle">
+                        <button v-on:click="password_new = value" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#doiMatKhau">Đổi Mật Khẩu</button>
                         <button v-on:click="edit = value" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#capNhatModal">Cập Nhật</button>
                         <button v-on:click="xoa = value" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#xoaModal">Xóa</button>
                     </td>
@@ -117,6 +118,33 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="doiMatKhau" tabindex="-1" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Đổi Mật Khẩu Khách Hàng</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-header">
+                                Thay Đổi Mật Khẩu Khách Hàng
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group mt-2">
+                                    <label>Mật Khẩu Mới</label>
+                                    <input type="password"  v-model="password_new.password"  name="password" class="form-control"  >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button v-on:click="changePassWord()" type="button" class="btn btn-primary">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </div>
@@ -126,9 +154,10 @@
     new Vue({
         el      :  '#app',
         data    :  {
-            list    :   [],
-            edit    :   {},
-            xoa  :  {},
+            list                :   [],
+            edit                :   {},
+            xoa                 :  {},
+            password_new        : {},
         },
         created() {
             this.loadData();
@@ -155,7 +184,7 @@
             },
             loadData() {
                 axios
-                    .get('/data')
+                    .get('/admin/khach-hang/data')
                     .then((res) => {
                         this.list = res.data.data;
                         this.loadData();
@@ -163,7 +192,7 @@
             },
             updateKhachHang() {
                 axios
-                    .post('/update', this.edit)
+                    .post('/admin/khach-hang/update', this.edit)
                     .then((res) => {
                         if(res.data.status) {
                             toastr.success('Đã cập nhật thành công!');
@@ -181,7 +210,7 @@
             },
             xoaKhachHang() {
                 axios
-                    .post('/delete' , this.xoa)
+                    .post('/admin/khach-hang/delete' , this.xoa)
                     .then((res) => {
                         if(res.data.status) {
                             toastr.success('Đã xóa khách hàng thành công!');
@@ -198,19 +227,37 @@
                     });
             },
             changeStatus(id) {
-                    axios
-                        .get('/change-status/' + id)
-                        .then((res) => {
-                            this.loadData();
-                            toastr.success('Đã đổi trạng thái thành công!');
-                        });
-                },
+                axios
+                    .get('/admin/khach-hang/change-status/' + id)
+                    .then((res) => {
+                        this.loadData();
+                        toastr.success('Đã đổi trạng thái thành công!');
+                    });
+            },
             kichHoat(id) {
                 axios
-                    .get('/kich-hoat/' + id)
+                    .get('/admin/khach-hang/kich-hoat/' + id)
                     .then((res) => {
                         this.loadData();
                         toastr.success('Đã Kích hoạt thành công!');
+                    });
+            },
+            changePassWord() {
+                axios
+                    .post('/admin/khach-hang/change-password', this.password_new)
+                    .then((res) => {
+                        if(res.data.status) {
+                            toastr.success('Thay đổi mật khẩu thành công!');
+                            this.loadData();
+                            $('#doiMatKhau').modal('hide');
+                        } else {
+                            toastr.error('Có lỗi không mong muốn!');
+                        }
+                    })
+                    .catch((res) => {
+                        $.each(res.response.data.errors, function(k, v) {
+                            toastr.error(v[0]);
+                        });
                     });
             },
 

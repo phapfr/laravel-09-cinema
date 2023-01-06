@@ -36,12 +36,7 @@ Route::post('/register', [CustomerController::class, 'actionRegister']);
 Route::get('/logout', [CustomerController::class, 'actionLogout']);
 
 Route::get('/active/{hash}', [CustomerController::class, 'actionActive']);
-Route::get('/thong-tin', [CustomerController::class, 'viewThongTin']);
-Route::get('/data', [CustomerController::class, 'getData']);
-Route::post('/update', [CustomerController::class, 'update']);
-Route::post('/delete', [CustomerController::class, 'destroy']);
-Route::get('/change-status/{id}', [CustomerController::class, 'changeStatus']);
-Route::get('/kich-hoat/{id}', [CustomerController::class, 'kichHoat']);
+
 
 
 
@@ -75,7 +70,7 @@ Route::group(['prefix' => '/client', 'middleware' => 'loginCustomer'],function()
     Route::get('/thanh-toan', [GheBanController::class, 'thanhToan']);
 });
 
-Route::group(['prefix' => '/admin', 'middleware' => 'loginAdmin'],function() {
+Route::group(['prefix' => '/admin'],function() {
     Route::get('/', [AdminController::class, 'viewHome']);
 
     Route::group(['prefix' => '/cau-hinh'], function() {
@@ -138,6 +133,15 @@ Route::group(['prefix' => '/admin', 'middleware' => 'loginAdmin'],function() {
         Route::get('/data', [QuanLyBaiVietController::class, 'getData']);
         Route::get('/status/{id}', [QuanLyBaiVietController::class, 'doiTrangThai']);
         Route::post('/delete', [QuanLyBaiVietController::class, 'delete']);
+    });
+    Route::group(['prefix' => '/khach-hang'], function() {
+        Route::get('/thong-tin', [CustomerController::class, 'viewThongTin']);
+        Route::get('/data', [CustomerController::class, 'getData']);
+        Route::post('/update', [CustomerController::class, 'update']);
+        Route::post('/delete', [CustomerController::class, 'destroy']);
+        Route::get('/change-status/{id}', [CustomerController::class, 'changeStatus']);
+        Route::get('/kich-hoat/{id}', [CustomerController::class, 'kichHoat']);
+        Route::post('/change-password', [CustomerController::class, 'changePassword']);
     });
 });
 
