@@ -1,5 +1,6 @@
 @extends('client.master')
 @section('content')
+<div id="app">
     <!-- contact-area -->
     <section class="contact-area contact-bg" data-background="/assets_client/img/bg/contact_bg.jpg">
         <div class="container">
@@ -10,19 +11,17 @@
                             <h5 class="title">Contact Form</h5>
                         </div>
                         <div class="contact-form">
-                            <form action="#">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="text" placeholder="You Name *">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="email" placeholder="You  Email *">
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" v-model="themmoi.ho_va_ten" placeholder="You Name *">
                                 </div>
-                                <input type="text" placeholder="Subject *">
-                                <textarea name="message" placeholder="Type Your Message..."></textarea>
-                                <button class="btn">Send Message</button>
-                            </form>
+                                <div class="col-md-6">
+                                    <input type="email" v-model="themmoi.email" placeholder="You  Email *">
+                                </div>
+                            </div>
+                            <input type="text" v-model="themmoi.tieu_de" placeholder="Subject *">
+                            <textarea name="message" v-model="themmoi.noi_dung" placeholder="Type Your Message..."></textarea>
+                            <button class="btn" type="button" v-on:click="sendLienHen()">Send Message</button>
                         </div>
                     </div>
                 </div>
@@ -54,4 +53,35 @@
         </div>
     </section>
     <!-- contact-area-end -->
+</div>
+@endsection
+@section('js')
+<script>
+    new Vue({
+        el  :   '#app',
+        data:   {
+            themmoi     :   {},
+        },
+        created() {
+
+        },
+        methods:    {
+            sendLienHen(){
+                axios
+                    .post('/send-lien-he', this.themmoi)
+                    .then((res) => {
+                        if(res.data.status) {
+                            toastr.success(res.data.message);
+                            this.themmoi = {};
+                        }
+                    })
+                    .catch((res) => {
+                        $.each(res.response.data.errors, function(k, v) {
+                            toastr.error(v[0]);
+                        });
+                    });
+            },
+        },
+    });
+</script>
 @endsection
