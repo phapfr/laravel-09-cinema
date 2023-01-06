@@ -51,33 +51,20 @@
                         </div>
                         <div class="rc-post">
                             <ul>
+                                @foreach ($baiViet as $key => $value)
+                                @php
+                                $hinh_anh = explode(',', $value->hinh_anh)
+                                @endphp
                                 <li class="rc-post-item">
                                     <div class="thumb">
-                                        <a href="blog-details.html"><img src="/assets_client/img/blog/rc_post_thumb01.jpg" alt=""></a>
+                                        <a href="/bai-viet/detail/{{$value->id}}"><img style="width: 100px; height: 80px;" src="{{$hinh_anh[0]}}" alt=""></a>
                                     </div>
                                     <div class="content">
-                                        <h5 class="title"><a href="blog-details.html">Express Management Effective</a></h5>
-                                        <span class="date"><i class="far fa-clock"></i> 10 Mar 2021</span>
+                                        <h5 class="title"><a href="/bai-viet/detail/{{$value->id}}">{{$value->tieu_de}}</a></h5>
+                                        <span class="date"><i class="far fa-clock"></i>{{$value->created_at}}</span>
                                     </div>
                                 </li>
-                                <li class="rc-post-item">
-                                    <div class="thumb">
-                                        <a href="blog-details.html"><img src="/assets_client/img/blog/rc_post_thumb02.jpg" alt=""></a>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="blog-details.html">Where watch English movies free?</a></h5>
-                                        <span class="date"><i class="far fa-clock"></i> 10 Mar 2021</span>
-                                    </div>
-                                </li>
-                                <li class="rc-post-item">
-                                    <div class="thumb">
-                                        <a href="blog-details.html"><img src="/assets_client/img/blog/rc_post_thumb03.jpg" alt=""></a>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="blog-details.html">House movie streaming website</a></h5>
-                                        <span class="date"><i class="far fa-clock"></i> 10 Mar 2021</span>
-                                    </div>
-                                </li>
+                            @endforeach
                             </ul>
                         </div>
                     </div>

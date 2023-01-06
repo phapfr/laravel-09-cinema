@@ -61,7 +61,7 @@
                         </thead>
                         <tbody>
                             <tr v-for="(value, key) in list_bai_viet">
-                                <th>@{{ key + 1 }}</th>
+                                <th class="text-nowrap align-middle">@{{ key + 1 }}</th>
                                 <td class="text-nowrap align-middle">@{{ value.tieu_de }}</td>
                                 <td class="text-nowrap align-middle">
                                    <template v-for="(v_im , k_im) in value.hinh_anh.split(',')">
