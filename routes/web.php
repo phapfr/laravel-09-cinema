@@ -7,6 +7,7 @@ use App\Http\Controllers\GheBanController;
 use App\Http\Controllers\GiaoDichController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\LichChieuController;
+use App\Http\Controllers\LienHeController;
 use App\Http\Controllers\PhimController;
 use App\Http\Controllers\PhongController;
 use App\Http\Controllers\QuanLyBaiVietController;
@@ -55,6 +56,7 @@ Route::get('/phim-sap-chieu', [HomepageController::class, 'viewPhimSapChieu']);
 Route::post('/tim-kiem', [HomepageController::class, 'actionTimKiem']);
 //END Phim
 Route::get('/lien-he', [HomepageController::class, 'viewLienHe']);
+Route::post('/send-lien-he', [HomepageController::class, 'sendLienHe']);
 
 
 Route::get('/chi-tiet-phim/{slug}', [HomepageController::class, 'chiTietPhim']);
@@ -108,6 +110,12 @@ Route::group(['prefix' => '/admin', 'middleware' => 'loginAdmin'],function() {
 
         Route::post('/delete', [PhimController::class, 'destroy']);
         Route::post('/update', [PhimController::class, 'update']);
+    });
+
+    Route::group(['prefix' => '/lien-he'], function() {
+        Route::get('/index', [LienHeController::class, 'index']);
+        Route::get('/data', [LienHeController::class, 'getData']);
+        Route::post('/delete', [LienHeController::class, 'deleteLienHe']);
     });
 
     Route::group(['prefix' => '/lich-chieu'], function() {
