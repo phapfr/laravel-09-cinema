@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GheBan;
+use App\Models\LichChieu;
+use App\Models\Phong;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -18,5 +21,19 @@ class TestController extends Controller
         dd(phpinfo());
 
        return view('AdminRocker.page.test');
+    }
+
+    public function test()
+    {
+        $list_lich_chieu = LichChieu::get();
+        $tat_ca_ghe = Phong::join('ghes', 'ghes.id_phong', 'phongs.id')
+                           ->get();
+        foreach ($list_lich_chieu as $value) {
+            foreach ($tat_ca_ghe as $value_phong) {
+                if($value_phong->id == $value->id_phong) {
+
+                }
+            }
+        }
     }
 }
