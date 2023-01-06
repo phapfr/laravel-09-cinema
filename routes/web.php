@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/test', [TestController::class, 'test']);
+Route::get('/chart', [TestController::class, 'chart']);
 
 Route::get('/e48c2936-ec56-4452-8e01-9ce7f1b38952', [GheBanController::class, 'huyVeAuto']);
 
@@ -62,6 +63,7 @@ Route::get('/admin/login', [AdminController::class, 'viewLogin']);
 Route::post('/admin/login', [AdminController::class, 'actionLogin']);
 
 Route::group(['prefix' => '/client', 'middleware' => 'loginCustomer'],function() {
+
     Route::get('/cap-nhap-thong-tin', [CustomerController::class, 'viewCapNhapThongTin']);
     Route::post('/cap-nhap-thong-tin', [CustomerController::class, 'capNhapThongTin']);
 

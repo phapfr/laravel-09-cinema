@@ -33,6 +33,7 @@ class CustomerSeeder extends Seeder
                 'gioi_tinh'=>1,
                 'loai_tai_khoan' => 1,
                 'ngay_sinh'=> Carbon::today(),
+                'created_at'=> Carbon::today()->addDays(rand(1,2)),
             ],
             [
                 'ho_va_ten' => "Hoàng hải",
@@ -43,6 +44,7 @@ class CustomerSeeder extends Seeder
                 'gioi_tinh'=>1,
                 'loai_tai_khoan' => 1,
                 'ngay_sinh'=> Carbon::today(),
+                'created_at'=> Carbon::today()->addDays(rand(1,2)),
             ],
             [
                 'ho_va_ten' => "Thương Nguyễn",
@@ -53,6 +55,7 @@ class CustomerSeeder extends Seeder
                 'gioi_tinh'=>1,
                 'loai_tai_khoan' => 1,
                 'ngay_sinh'=> Carbon::today(),
+                'created_at'=> Carbon::today()->addDays(rand(1,2)),
             ],
             [
                 'ho_va_ten' => "Thông Nguyễn",
@@ -63,6 +66,7 @@ class CustomerSeeder extends Seeder
                 'gioi_tinh'=>1,
                 'loai_tai_khoan' => 1,
                 'ngay_sinh'=> Carbon::today(),
+                'created_at'=> Carbon::today(),
             ],
             [
                 'ho_va_ten' => "Lợi Nguyễn",
@@ -73,6 +77,7 @@ class CustomerSeeder extends Seeder
                 'gioi_tinh'=>1,
                 'loai_tai_khoan' => 1,
                 'ngay_sinh'=> Carbon::today(),
+                'created_at'=> Carbon::today(),
             ],
             [
                 'ho_va_ten' => "Hồng Thu",
@@ -83,6 +88,7 @@ class CustomerSeeder extends Seeder
                 'gioi_tinh'=>1,
                 'loai_tai_khoan' => 1,
                 'ngay_sinh'=> Carbon::today(),
+                'created_at'=> Carbon::today(),
             ],
             [
                 'ho_va_ten' => "Van Nhat",
@@ -93,6 +99,7 @@ class CustomerSeeder extends Seeder
                 'gioi_tinh'=>1,
                 'loai_tai_khoan' => 1,
                 'ngay_sinh'=> Carbon::today(),
+                'created_at'=> Carbon::today()->subDays(rand(1,4)),
             ],
             [
                 'ho_va_ten' => "Gia Minh",
@@ -103,6 +110,7 @@ class CustomerSeeder extends Seeder
                 'gioi_tinh'=>1,
                 'loai_tai_khoan' => 1,
                 'ngay_sinh'=> Carbon::today(),
+                'created_at'=> Carbon::today()->subDays(rand(1,4)),
             ],
             [
                 'ho_va_ten' => "Phạm Phúc",
@@ -113,6 +121,7 @@ class CustomerSeeder extends Seeder
                 'gioi_tinh'=>1,
                 'loai_tai_khoan' => 1,
                 'ngay_sinh'=> Carbon::today(),
+                'created_at'=> Carbon::today()->subDays(rand(1,4)),
             ],
             [
                 'ho_va_ten' => "Trần Quang Sang",
@@ -123,6 +132,7 @@ class CustomerSeeder extends Seeder
                 'gioi_tinh'=>1,
                 'loai_tai_khoan' => 1,
                 'ngay_sinh'=> Carbon::today(),
+                'created_at'=> Carbon::today()->subDays(rand(1,4)),
             ],
         ]);
     }

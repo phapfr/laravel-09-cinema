@@ -2,6 +2,9 @@
 @section('content')
 <section class="contact-area contact-bg" data-background="/assets_client/img/bg/contact_bg.jpg" style="background-image: url(&quot;img/bg/contact_bg.jpg&quot;);">
     <div class="container">
+        @php
+            $user = Auth::guard('customer')->user();
+        @endphp
         <div class="row">
             <div class="col-xl-8 col-lg-7">
                 <div class="contact-form-wrap">

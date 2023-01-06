@@ -69,10 +69,8 @@ class HomepageController extends Controller
     public function actionTimKiem(Request $request)
     {
         $search = $request->search;
+        // "SELECT * FROM `phims` WHERE ten_phim LIKE '%Avatar%';"
         $list_phim = Phim::where('ten_phim' , 'like' , '%' . $search . '%')
-                        //  ->orWhere('dao_dien' , 'like' , '%' . $search . '%')
-                        //  ->orWhere('dien_vien' , 'like' , '%' . $search . '%')
-                        //  ->orWhere('the_loai' , 'like' , '%' . $search . '%')
                          ->get();
 
         return view('client.phim' , compact('list_phim'));

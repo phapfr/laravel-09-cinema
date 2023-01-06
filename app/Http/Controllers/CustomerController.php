@@ -95,8 +95,8 @@ class CustomerController extends Controller
 
     public function viewCapNhapThongTin()
     {
-        $user = Auth::guard('customer')->user();
-        return view('client.profile' , compact('user'));
+
+        return view('client.profile');
     }
 
     public function capNhapThongTin(CapNhapThongTinRequest $request)
@@ -226,7 +226,7 @@ class CustomerController extends Controller
             toastr()->error("Tài khoản hoặc mật khẩu không đúng!");
         }
 
-        return redirect('/');
+        return redirect('/client/cap-nhap-thong-tin');
     }
 
     public function actionActive($hash)
