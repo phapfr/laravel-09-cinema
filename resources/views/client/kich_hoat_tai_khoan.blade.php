@@ -17,9 +17,7 @@
     <o:PixelsPerInch>96</o:PixelsPerInch>
     </o:OfficeDocumentSettings>
 </xml>
-<![endif]--><!--[if !mso]><!-- -->
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i" rel="stylesheet"><!--<![endif]-->
-  <style type="text/css">
+<style type="text/css">
 #outlook a {
 	padding:0;
 }

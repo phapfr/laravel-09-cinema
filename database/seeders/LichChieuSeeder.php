@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\GheBan;
+use App\Models\LichChieu;
+use App\Models\Phong;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,9 +19,11 @@ class LichChieuSeeder extends Seeder
     public function run()
     {
         DB::table('lich_chieus')->delete();
+        DB::table('ghe_bans')->delete();
 
          // Reset id về lại 1
         DB::table('lich_chieus')->truncate();
+        DB::table('ghe_bans')->truncate();
 
         // 2. Ta sẽ thêm mới phim bằng lệnh create
         DB::table('lich_chieus')->insert([
@@ -873,5 +878,20 @@ class LichChieuSeeder extends Seeder
             ],
 
         ]);
+
+
+        $list_lich_chieu = LichChieu::get();
+        foreach ($list_lich_chieu as $value) {
+            $tat_ca_ghe = Phong::where('phongs.id', $value->id_phong)
+                           ->join('ghes', 'ghes.id_phong', 'phongs.id')
+                           ->get();
+
+            foreach($tat_ca_ghe as $key => $value_phong) {
+                GheBan::create([
+                    'id_lich'   => $value->id,
+                    'ten_ghe'   => $value_phong->ten_ghe,
+                ]);
+            }
+        }
     }
 }
