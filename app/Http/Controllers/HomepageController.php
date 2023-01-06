@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendMailJob;
+use App\Jobs\SendMailLienHe;
 use App\Models\Config;
 use App\Models\LichChieu;
 use App\Models\LienHe;
@@ -85,6 +87,13 @@ class HomepageController extends Controller
     {
         $data = $request->all();
         LienHe::create($data);
+        // Phân cụm này qua JOB
+        $dataMail['ho_va_ten'] = $request->ho_va_ten;
+        $dataMail['email']     = $request->email;
+        $dataMail['tieu_de']   = $request->tieu_de;
+        $dataMail['noi_dung']  = $request->noi_dung;
+
+        SendMailLienHe::dispatch($dataMail);
 
         return response()->json([
             'status'    =>   true,

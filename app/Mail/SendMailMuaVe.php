@@ -20,11 +20,6 @@ class SendMailMuaVe extends Mailable
         $this->data = $data;
     }
 
-    /**
-     * Get the message envelope.
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
-     */
     public function build()
     {
         return $this->subject('Kích Hoạt Tài Khoản Tại Website....')

@@ -50,16 +50,21 @@
                     <li> <a class="dropdown-item" href="/admin/lich-chieu/index"><i class="bx bx-right-arrow-alt"></i>Lịch Chiếu Auto</a>
                     </li>
                     <li> <a class="dropdown-item" href="/admin/lich-chieu/tao-mot-buoi"><i class="bx bx-right-arrow-alt"></i>Lịch Chiếu Một Buổi</a>
-                    </li>
-                    <li> <a class="dropdown-item" href="index3.html"><i class="bx bx-right-arrow-alt"></i>Graphical</a>
-                    </li>
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/khach-hang/thong-tin">
-                    <div class="parent-icon" style="width: 24px; height: 27px;"><i class="fa-regular fa-user"></i>
+                <a class="nav-link" href="/admin/lien-he/index">
+                    <div class="parent-icon"><i class="bx bx-cookie"></i>
                     </div>
-                    <div class="menu-title">Quản Lý Khách Hàng</div>
+                    <div class="menu-title">Quản Lý Liên Hệ</div>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/lien-he/index">
+                    <div class="parent-icon"><i class="bx bx-cookie"></i>
+                    </div>
+                    <div class="menu-title">Quản Lý Liên Hệ</div>
                 </a>
             </li>
         </ul>
