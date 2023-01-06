@@ -13,12 +13,76 @@ use App\Models\QuanLyBaiViet;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 
 class CustomerController extends Controller
 {
+    public function viewThongTin()
+    {
+        return view('AdminRocker.page.KhachHang.index');
+    }
+
+    public function getData()
+    {
+        $data = Customer::get();
+
+        return response()->json([
+            'data'  => $data,
+        ]);
+    }
+    public function update(Request $request)
+    {
+        $data = $request->all();
+        $phim = Customer::where('id', $request->id)->first();
+        $phim->update($data);
+
+        return response()->json([
+            'status'    => true,
+        ]);
+    }
+
+    public function destroy(Request $request)
+    {
+        Customer::where('id', $request->id)->first()->delete();
+
+        return response()->json([
+            'status'    => true,
+        ]);
+    }
+
+    public function changeStatus($id)
+    {
+        $change = Customer::find($id);
+        if($change->loai_tai_khoan == -1) {
+            $change->loai_tai_khoan = 1;
+        } else  {
+            $change->loai_tai_khoan = -1;
+        }
+        $change->save();
+    }
+
+    public function kichHoat($id)
+    {
+        $kickHoat = Customer::find($id);
+        if($kickHoat->loai_tai_khoan == 0) {
+            $kickHoat->loai_tai_khoan = 1;
+            $kickHoat['hash_mail'] = Str::uuid();
+        }
+        else if($kickHoat->loai_tai_khoan == 1) {
+            $kickHoat->loai_tai_khoan = 0;
+            $kickHoat['hash_mail'] = '';
+        }
+        $kickHoat->save();
+    }
+
+
+
+
+
+
     public function actionUpdatePassword(UpdatePasswordRequest $request)
     {
         $customer = Customer::where('hash_reset', $request->hash_reset)->first();
@@ -66,6 +130,7 @@ class CustomerController extends Controller
     {
         return view('client.register');
     }
+
 
     public function actionRegister(RegisterAccountRequest $request)
     {
