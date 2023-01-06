@@ -35,7 +35,6 @@ class PhimController extends Controller
     public function getData()
     {
         $data = Phim::orderByDESC('created_at')->get();
-
         return response()->json([
             'phim'  => $data,
         ]);

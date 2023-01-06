@@ -66,6 +66,7 @@
                                         <img src="/assets_client/img/logo/logo.png" alt="Logo">
                                     </a>
                                 </div>
+
                                 <div class="navbar-wrap main-menu d-none d-lg-flex">
                                     <ul class="navigation">
                                         <li class="active menu-item-has-children"><a href="/">Home</a>
