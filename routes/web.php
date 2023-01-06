@@ -28,6 +28,14 @@ Route::post('/login', [CustomerController::class, 'actionLogin']);
 Route::get('/register', [CustomerController::class, 'viewRegister']);
 Route::post('/register', [CustomerController::class, 'actionRegister']);
 Route::get('/active/{hash}', [CustomerController::class, 'actionActive']);
+Route::get('/thong-tin', [CustomerController::class, 'viewThongTin']);
+Route::get('/data', [CustomerController::class, 'getData']);
+Route::post('/update', [CustomerController::class, 'update']);
+Route::post('/delete', [CustomerController::class, 'destroy']);
+Route::get('/change-status/{id}', [CustomerController::class, 'changeStatus']);
+Route::get('/kich-hoat/{id}', [CustomerController::class, 'kichHoat']);
+
+
 
 
 Route::get('/chi-tiet-phim/{slug}', [HomepageController::class, 'chiTietPhim']);
@@ -43,7 +51,7 @@ Route::group(['prefix' => '/client', 'middleware' => 'loginCustomer'],function()
     Route::get('/thanh-toan', [GheBanController::class, 'thanhToan']);
 });
 
-Route::group(['prefix' => '/admin', 'middleware' => 'loginAdmin'],function() {
+Route::group(['prefix' => '/admin' , 'middleware' => 'loginAdmin'],function() {
     Route::group(['prefix' => '/cau-hinh'], function() {
         Route::get('/index', [ConfigController::class, 'index']);
         Route::post('/index', [ConfigController::class, 'store']);

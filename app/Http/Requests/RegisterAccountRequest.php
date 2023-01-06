@@ -22,7 +22,7 @@ class RegisterAccountRequest extends FormRequest
             'dia_chi'               =>  'required|min:6|max:50',
             'gioi_tinh'             =>  'required|numeric|min:0|max:1',
             'ngay_sinh'             =>  'required|date',
-            'g-recaptcha-response'  => 'required|captcha',
+            // 'g-recaptcha-response'  => 'required|captcha',
         ];
     }
 
