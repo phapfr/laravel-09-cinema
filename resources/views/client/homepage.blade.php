@@ -92,7 +92,7 @@
                                             </div>
                                         </li>
 
-                                        {{-- @if ($check)
+                                        @if ($check)
                                             <div class="navbar-wrap main-menu d-none d-lg-flex">
                                                 <ul class="navigation">
                                                     <li class="active menu-item-has-children ml-4"><a href="#"><i class="fa-solid fa-user fa-2x"></i></a>
@@ -106,7 +106,7 @@
                                             </div>
                                         @else
                                             <li class="header-btn"><a href="/register" class="btn">Sign In</a></li>
-                                        @endif --}}
+                                        @endif
                                     </ul>
                                 </div>
                             </nav>
