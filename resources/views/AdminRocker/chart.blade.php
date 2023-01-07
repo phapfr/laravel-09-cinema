@@ -30,7 +30,6 @@
           data: {
             labels: list_day,
             datasets: [{
-            //   label: '# of Votes',
               data: list_user,
               borderWidth: 1
             }]

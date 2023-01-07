@@ -43,7 +43,7 @@ class TestController extends Controller
         }
 
         $ngay_dau_tuan  =  Carbon::today()->startOfWeek();
-        $list_user = Customer::where('created_at' ,'>=' ,  $ngay_dau_tuan)
+        $list_user_db = Customer::where('created_at' ,'>=' ,  $ngay_dau_tuan)
                              ->where('created_at' , '<=' , $ngay_cuoi_tuan)
                              ->select(
                                 DB::raw('COUNT(created_at) as total'),
@@ -51,6 +51,18 @@ class TestController extends Controller
                              )
                              ->groupBy('day')
                              ->get();
+
+        $list_user = [];
+        foreach($list_day as $key => $value) {
+            $gia_tri = 0;
+            foreach($list_user_db as $key_2 => $value_2) {
+                if($value == $value_2->day) {
+                    $gia_tri = $value_2->total;
+                }
+            }
+            array_push($list_user, $gia_tri);
+        }
+
         return view('AdminRocker.chart' , compact('list_day' , 'list_user'));
     }
 }
