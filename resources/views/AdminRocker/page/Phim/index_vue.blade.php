@@ -219,7 +219,6 @@
                                                 </span>
                                             </div>
                                             <div id="holder_update" style="margin-top:15px;max-height:100px;">
-
                                             </div>
                                         </div>
                                         <div class="form-group mt-3">

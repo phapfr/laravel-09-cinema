@@ -16,5 +16,8 @@ class Config extends Model
         'id_phim',
         'phim_2',
         'phim_3',
+        'slide_1',
+        'slide_2',
+        'slide_3',
     ];
 }

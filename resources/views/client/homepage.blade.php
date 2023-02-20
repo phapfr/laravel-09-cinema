@@ -381,17 +381,17 @@
                 <div class="row gallery-active">
                     <div class="col-12">
                         <div class="gallery-item">
-                            <img src="/assets_client/img/images/gallery_01.jpg" alt="">
+                            <img src="{{ isset($config->slide_1) ? $config->slide_1 : '/assets_client/img/banner/s_slider_bg.jpg'}}" alt="">
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="gallery-item">
-                            <img src="/assets_client/img/images/gallery_02.jpg" alt="">
+                            <img src="{{ isset($config->slide_2) ? $config->slide_2 : '/assets_client/img/banner/s_slider_bg.jpg'}}" alt="">
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="gallery-item">
-                            <img src="/assets_client/img/images/gallery_03.jpg" alt="">
+                            <img src="{{ isset($config->slide_3) ? $config->slide_3 : '/assets_client/img/banner/s_slider_bg.jpg'}}" alt="">
                         </div>
                     </div>
                 </div>
